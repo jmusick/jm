@@ -1,0 +1,16 @@
+name = "jm"
+main = "dist/index.html"
+type = "javascript"
+
+[env.production]
+routes = [
+  { pattern = "justinmusick.com", zone_name = "justinmusick.com" }
+]
+
+[build]
+command = "npm run build"
+cwd = "./"
+watch_paths = ["src/**/*.jsx", "src/**/*.css", "index.html", "public/**/*"]
+
+[[build.upload]]
+format = "service-worker"

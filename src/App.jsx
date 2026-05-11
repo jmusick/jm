@@ -241,6 +241,60 @@ function App() {
     `${experience[0].company}-${experience[0].range}`
   )
 
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  })
+  const [formStatus, setFormStatus] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setFormStatus(null)
+
+    try {
+      const captchaToken = window.turnstile?.getResponse()
+      if (!captchaToken) {
+        setFormStatus({ type: 'error', message: 'Please complete the CAPTCHA' })
+        setIsSubmitting(false)
+        return
+      }
+
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: '04a0f1d5-6e75-45b7-9e09-24993050c6e4',
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          'cf-turnstile-response': captchaToken,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setFormStatus({ type: 'success', message: "Message sent! I'll get back to you soon." })
+        setFormData({ name: '', email: '', message: '' })
+        window.turnstile?.reset()
+      } else {
+        setFormStatus({ type: 'error', message: result.message || 'Failed to send message. Please try again.' })
+      }
+    } catch (error) {
+      setFormStatus({ type: 'error', message: 'An error occurred. Please try again.' })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   const projectSkills = projectGroups
     .flatMap((group) => group.projects)
     .flatMap((project) => project.stack.split(','))
@@ -418,7 +472,7 @@ function App() {
               <summary
                 onClick={(event) => {
                   event.preventDefault()
-                  setActiveExperienceKey(roleKey)
+                  setActiveExperienceKey(isOpen ? null : roleKey)
                 }}
               >
                 <div className="summary-main">
@@ -538,17 +592,74 @@ function App() {
             <FiMail aria-hidden="true" />
             <span>Contact</span>
           </h2>
-          <p>
-            GitHub: <a href={githubUrl} target="_blank" rel="noreferrer">github.com/jmusick</a>
-          </p>
-          <p className="note">Sandusky, Ohio, United States</p>
+          
+          <form onSubmit={handleFormSubmit} className="contact-form">
+            <div className="form-group">
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleFormChange}
+                required
+                placeholder="Your name"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleFormChange}
+                required
+                placeholder="your@email.com"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleFormChange}
+                required
+                placeholder="Your message..."
+                rows={5}
+              />
+            </div>
+
+            <div
+              className="cf-turnstile"
+              data-sitekey="0x4AAAAAADNaj89hsaZ4UZ3m"
+              data-theme="dark"
+            />
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="submit-button"
+            >
+              {isSubmitting ? 'Sending...' : 'Send Message'}
+            </button>
+
+            {formStatus && (
+              <div className={`form-status ${formStatus.type}`}>
+                {formStatus.message}
+              </div>
+            )}
+          </form>
         </section>
       </main>
 
         <footer className="footer">
           <p>Justin Musick</p>
           <div className="footer-links">
-            <a href={githubUrl} target="_blank" rel="noreferrer">
+            <a href="https://github.com/jmusick/jm" target="_blank" rel="noreferrer">
               <FiGithub aria-hidden="true" /> GitHub
             </a>
             <a href="#top">Back to top</a>
