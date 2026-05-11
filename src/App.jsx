@@ -1,5 +1,6 @@
 import './App.css'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import HCaptcha from '@hcaptcha/react-hcaptcha'
 import {
   FiBriefcase,
   FiChevronDown,
@@ -248,6 +249,7 @@ function App() {
   })
   const [formStatus, setFormStatus] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const hCaptchaRef = useRef(null)
 
   const handleFormChange = (e) => {
     const { name, value } = e.target
@@ -260,7 +262,7 @@ function App() {
     setFormStatus(null)
 
     try {
-      const captchaToken = window.turnstile?.getResponse()
+      const captchaToken = hCaptchaRef.current?.getResponse()
       if (!captchaToken) {
         setFormStatus({ type: 'error', message: 'Please complete the CAPTCHA' })
         setIsSubmitting(false)
@@ -275,7 +277,7 @@ function App() {
           name: formData.name,
           email: formData.email,
           message: formData.message,
-          'cf-turnstile-response': captchaToken,
+          'h-captcha-response': captchaToken,
         }),
       })
 
@@ -284,7 +286,7 @@ function App() {
       if (result.success) {
         setFormStatus({ type: 'success', message: "Message sent! I'll get back to you soon." })
         setFormData({ name: '', email: '', message: '' })
-        window.turnstile?.reset()
+        hCaptchaRef.current?.reset()
       } else {
         setFormStatus({ type: 'error', message: result.message || 'Failed to send message. Please try again.' })
       }
@@ -633,10 +635,10 @@ function App() {
               />
             </div>
 
-            <div
-              className="cf-turnstile"
-              data-sitekey="0x4AAAAAADNaj89hsaZ4UZ3m"
-              data-theme="dark"
+            <HCaptcha
+              ref={hCaptchaRef}
+              sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
+              reCaptchaCompat={false}
             />
 
             <button
