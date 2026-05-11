@@ -281,6 +281,10 @@ function App() {
         }),
       })
 
+      if (!response.ok) {
+        throw new Error(`HTTP Error: ${response.status}`)
+      }
+
       const result = await response.json()
 
       if (result.success) {
@@ -291,7 +295,8 @@ function App() {
         setFormStatus({ type: 'error', message: result.message || 'Failed to send message. Please try again.' })
       }
     } catch (error) {
-      setFormStatus({ type: 'error', message: 'An error occurred. Please try again.' })
+      console.error('Form submission error:', error)
+      setFormStatus({ type: 'error', message: `Error: ${error.message}` })
     } finally {
       setIsSubmitting(false)
     }
