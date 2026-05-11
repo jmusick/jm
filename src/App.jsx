@@ -19,6 +19,7 @@ import {
 function App() {
   const githubUrl = 'https://github.com/jmusick'
   const linkedInUrl = 'https://linkedin.com/in/jdmusick'
+  const version = '1.0.3'
 
   const skills = [
     'Astro',
@@ -290,7 +291,6 @@ function App() {
       if (result.success) {
         setFormStatus({ type: 'success', message: "Message sent! I'll get back to you soon." })
         setFormData({ name: '', email: '', message: '' })
-        hCaptchaRef.current?.reset()
       } else {
         setFormStatus({ type: 'error', message: result.message || 'Failed to send message. Please try again.' })
       }
@@ -665,6 +665,7 @@ function App() {
 
         <footer className="footer">
           <p>Justin Musick</p>
+          <p className="footer-version">v{version}</p>
           <div className="footer-links">
             <a href="https://github.com/jmusick/jm" target="_blank" rel="noreferrer">
               <FiGithub aria-hidden="true" /> GitHub

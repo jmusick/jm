@@ -444,6 +444,14 @@ main {
   font-weight: 700;
 }
 
+.footer-version {
+  flex: 1;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
 .footer a {
   text-decoration: none;
   color: var(--brand);
