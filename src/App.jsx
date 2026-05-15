@@ -4,7 +4,6 @@ import HCaptcha from '@hcaptcha/react-hcaptcha'
 import {
   FiBriefcase,
   FiChevronDown,
-  FiCode,
   FiCpu,
   FiExternalLink,
   FiGithub,
@@ -19,7 +18,7 @@ import {
 function App() {
   const githubUrl = 'https://github.com/jmusick'
   const linkedInUrl = 'https://linkedin.com/in/jdmusick'
-  const version = '1.0.3'
+  const version = __APP_VERSION__
 
   const skills = [
     'Astro',
