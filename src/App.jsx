@@ -670,6 +670,9 @@ function App() {
             <a href="https://github.com/jmusick/jm" target="_blank" rel="noreferrer">
               <FiGithub aria-hidden="true" /> GitHub
             </a>
+            <a href="/sitemap.xml" target="_blank" rel="noreferrer">
+              Sitemap
+            </a>
             <a href="#top">Back to top</a>
           </div>
         </footer>
