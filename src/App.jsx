@@ -113,6 +113,17 @@ function App() {
           linkText: 'Site Repo',
           image: '/projects/hiddenlodge.png',
         },
+        {
+          name: 'Dorian Black',
+          description:
+            'Official artist site for synth-pop project Dorian Black, featuring the album After Tonight with an embedded Spotify player, full tracklist, artist bio, and streaming links.',
+          stack: 'Astro, JavaScript, HTML, CSS, Spotify Embeds',
+          liveLink: 'https://dorianblack.com/',
+          liveLinkText: 'View Project',
+          link: 'https://github.com/jmusick/DorianBlack',
+          linkText: 'Site Repo',
+          image: '/projects/dorianblack.png',
+        },
       ],
     },
   ]
