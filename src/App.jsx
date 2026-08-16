@@ -79,7 +79,7 @@ function App() {
       title: 'Personal',
       projects: [
         {
-          name: 'Tagsta.sh',
+          name: 'Tagstash',
           description:
             'Tagstash is a self-hosted, tag-first bookmarking app with a React frontend, Cloudflare Pages & Workers backend, D1 storage, browser extension support, email verification, and Stripe-powered Pro subscriptions.',
           stack: 'React, Cloudflare Pages & Workers, D1, Stripe, Resend, CRUD, REST',
@@ -90,6 +90,28 @@ function App() {
           secondaryLink: 'https://github.com/jmusick/TagstashExtension',
           secondaryLinkText: 'Extension Repo',
           image: '/projects/tagstash.png',
+        },
+        {
+          name: 'Simon Rook',
+          description:
+            'Author site for Simon Rook, presenting the book The Stoic Mind for Overthinkers with a typed book catalogue, detail pages, and retailer links. Palette and typography derive from the cover art.',
+          stack: 'Astro, TypeScript, HTML, CSS, Cloudflare Pages',
+          liveLink: 'https://simonrook.com/',
+          liveLinkText: 'View Project',
+          link: 'https://github.com/jmusick/SimonRook',
+          linkText: 'Site Repo',
+          image: '/projects/simonrook.png',
+        },
+        {
+          name: 'Dorian Black',
+          description:
+            'Official artist site for synth-pop project Dorian Black, featuring the album After Tonight with an embedded Spotify player, full tracklist, artist bio, and streaming links.',
+          stack: 'Astro, JavaScript, HTML, CSS, Spotify Embeds',
+          liveLink: 'https://dorianblack.com/',
+          liveLinkText: 'View Project',
+          link: 'https://github.com/jmusick/DorianBlack',
+          linkText: 'Site Repo',
+          image: '/projects/dorianblack.png',
         },
         {
           name: 'Pneumaris Band',
@@ -112,17 +134,6 @@ function App() {
           link: 'https://github.com/jmusick/HiddenLodgeWebsite',
           linkText: 'Site Repo',
           image: '/projects/hiddenlodge.png',
-        },
-        {
-          name: 'Dorian Black',
-          description:
-            'Official artist site for synth-pop project Dorian Black, featuring the album After Tonight with an embedded Spotify player, full tracklist, artist bio, and streaming links.',
-          stack: 'Astro, JavaScript, HTML, CSS, Spotify Embeds',
-          liveLink: 'https://dorianblack.com/',
-          liveLinkText: 'View Project',
-          link: 'https://github.com/jmusick/DorianBlack',
-          linkText: 'Site Repo',
-          image: '/projects/dorianblack.png',
         },
       ],
     },
