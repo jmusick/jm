@@ -22,8 +22,16 @@ function App() {
 
   const skills = [
     'Astro',
+    'C#',
+    'Claude Code',
+    'Codex',
     'Java',
     'JavaScript',
+    'Lua',
+    'Python',
+    'TypeScript',
+    'Unity',
+    'Vite',
     'HTML',
     'CSS',
     'MS SQL',
@@ -323,11 +331,18 @@ function App() {
     }
   }
 
+  // Project stacks name the exact services each site uses; the skills list
+  // rolls those up so near-identical entries don't sit next to each other.
+  const skillAliases = {
+    'Cloudflare Pages': 'Cloudflare Pages & Workers',
+  }
+
   const projectSkills = projectGroups
     .flatMap((group) => group.projects)
     .flatMap((project) => project.stack.split(','))
     .map((item) => item.trim())
     .filter(Boolean)
+    .map((item) => skillAliases[item] ?? item)
 
   const allSkills = Array.from(new Set([...skills, ...projectSkills])).sort((a, b) =>
     a.localeCompare(b)
@@ -343,17 +358,22 @@ function App() {
     'jQuery',
     'JSP',
     'React',
+    'TypeScript',
+    'Vite',
   ])
 
   const backEndSkills = new Set([
+    'C#',
     'Cron',
     'CRUD',
     'D1',
     'Java',
+    'Lua',
     'MS SQL',
     'MySQL',
     'PHP',
     'PostgreSQL',
+    'Python',
     'REST',
     'Spring',
     'Struts',
@@ -368,9 +388,12 @@ function App() {
     'Kentico',
     'Resend',
     'Stripe',
+    'Unity',
     'Web3Forms',
     'WordPress',
   ])
+
+  const aiSkills = new Set(['Claude Code', 'Codex'])
 
   const businessSkills = new Set([
     'Accessibility',
@@ -383,7 +406,9 @@ function App() {
 
   const categorizedSkills = allSkills.reduce(
     (acc, skill) => {
-      if (businessSkills.has(skill)) {
+      if (aiSkills.has(skill)) {
+        acc.AI.push(skill)
+      } else if (businessSkills.has(skill)) {
         acc.Business.push(skill)
       } else if (frontEndSkills.has(skill)) {
         acc['Front End'].push(skill)
@@ -397,13 +422,14 @@ function App() {
 
       return acc
     },
-    { 'Front End': [], 'Back End': [], Software: [], Business: [] }
+    { 'Front End': [], 'Back End': [], Software: [], AI: [], Business: [] }
   )
 
   const categoryIcons = {
     'Front End': FiMonitor,
     'Back End': FiServer,
     Software: FiLayers,
+    AI: FiCpu,
     Business: FiBriefcase,
   }
 
