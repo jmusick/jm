@@ -288,7 +288,7 @@ main {
   border-color: rgba(148, 163, 184, 0.5);
 }
 
-.project-card h3 {
+.project-card h4 {
   margin: 0;
   font-size: 1rem;
   font-family: var(--heading-font);

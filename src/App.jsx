@@ -5,6 +5,7 @@ import {
   FiBriefcase,
   FiChevronDown,
   FiCpu,
+  FiDownload,
   FiExternalLink,
   FiGithub,
   FiLayers,
@@ -22,15 +23,11 @@ function App() {
 
   const skills = [
     'Astro',
-    'C#',
-    'Claude Code',
-    'Codex',
     'Java',
     'JavaScript',
     'Lua',
     'Python',
     'TypeScript',
-    'Unity',
     'Vite',
     'HTML',
     'CSS',
@@ -63,22 +60,22 @@ function App() {
         {
           name: 'WebExchange Client Portal',
           description:
-            'Contributed to a secure healthcare portal where members can view claims, track deductibles, request documentation, and file disputes.',
+            'Modernized and enhanced a secure healthcare portal serving thousands of users, with claims, deductible tracking, documentation requests, and dispute workflows.',
           stack: 'Java, Struts, Spring, JavaScript, CSS, Bootstrap, jQuery, Jinja, REST',
           showGithub: false,
         },
         {
           name: 'IWS Internal Workflow System',
           description:
-            'Led backend and UI enhancements for a multi-department workflow platform supporting document indexing, OCR processing, and configurable security rules.',
+            'Delivered backend and UI modernization for a platform used across dozens of departments, supporting document indexing, OCR, configurable workflows, and role-based security.',
           stack: 'Java, Struts, Spring, JavaScript, CSS, Bootstrap, jQuery, Jinja, REST',
           showGithub: false,
         },
         {
           name: 'UMR Portals',
           description:
-            'Custom built Optum Adaptive Platform (OAP) used to handle millions of customers for UMR (TPA). OAP builds hyper customizable portals for various lines of business and clients.',
-          stack: 'Java, Spring, JavaScript, CSS, Bootstrap, jQuery, JSP, CRUD, REST',
+            'Develop and support 20+ configurable Optum Adaptive Platform portals serving millions of users across UMR, NYC, GEHA, and other clients and lines of business.',
+          stack: 'Java, Spring, JavaScript, CSS, Bootstrap, jQuery, JSP, REST',
           showGithub: false,
         },
       ],
@@ -89,8 +86,8 @@ function App() {
         {
           name: 'Tagstash',
           description:
-            'Tagstash is a self-hosted, tag-first bookmarking app with a React frontend, Cloudflare Pages & Workers backend, D1 storage, browser extension support, email verification, and Stripe-powered Pro subscriptions.',
-          stack: 'React, Cloudflare Pages & Workers, D1, Stripe, Resend, CRUD, REST',
+            'Designed and built an end-to-end, multi-user bookmarking application with active users, including the database architecture, React interface, browser extension, email verification, REST APIs, and Stripe subscription system.',
+          stack: 'React, Cloudflare Pages & Workers, D1, Stripe, Resend, REST',
           liveLink: 'https://tagsta.sh/',
           liveLinkText: 'View Project',
           link: 'https://github.com/jmusick/Tagstash',
@@ -135,8 +132,8 @@ function App() {
         {
           name: 'The Hidden Lodge',
           description:
-            'Guild website for The Hidden Lodge with raid scheduling, progression goals, guild rules, membership resources, and desktop sync plus WoW addon integration features.',
-          stack: 'Astro, JavaScript, HTML, CSS, Cron',
+            'Built a full-stack guild operations platform with Blizzard authentication and APIs, D1-backed administration and analytics, scheduled data refreshes, a Python desktop bridge, and a Lua WoW addon that exchanges preparedness, attendance, Great Vault, upgrade, and loot-history data through authenticated REST endpoints.',
+          stack: 'Astro, TypeScript, Cloudflare Pages & Workers, D1, Blizzard OAuth & API, REST, Python, Lua, GitHub Actions',
           liveLink: 'https://hidden-lodge.com/',
           liveLinkText: 'View Project',
           link: 'https://github.com/jmusick/HiddenLodgeWebsite',
@@ -153,13 +150,12 @@ function App() {
       company: 'Optum, Inc.',
       range: 'May 2024 - Present',
       bullets: [
-        'Developed and maintained full-stack, customer-facing healthcare web applications using Java (Struts, Spring) and JavaScript/CSS (Bootstrap, jQuery).',
-        'Contributed to WebExchange, a secure client portal for medical claims, deductibles, documentation requests, and dispute workflows.',
-        'Led backend and UI enhancements for IWS, including dynamic workflow configuration, document indexing, OCR processing, and a security rule engine.',
+        'Develop and maintain full-stack healthcare applications serving thousands of users with Java, Spring, Struts, JSP/Jinja, JavaScript, Bootstrap, jQuery, CSS, and REST services.',
+        'Modernize WebExchange and IWS across backend and UI layers, including workflow configuration, document indexing, OCR processing, and configurable security rules used by dozens of departments.',
+        'Develop and support 20+ configurable Optum Adaptive Platform portals serving millions of users across UMR, NYC, GEHA, and other clients and lines of business.',
         'Refactored and forked WebExchange to support a new Network Provider Services unit under HealthSmart with new business rules and compliance requirements.',
-        'Designed and implemented configurable role-based access controls and security validations to meet strict enterprise security standards.',
-        'Ensured application behavior aligned with HIPAA compliance requirements and enterprise-level data protection expectations.',
-        'Collaborated with QA, business analysts, and stakeholders across departments to deliver secure, production-ready solutions.',
+        'Implement role-based access controls and security validations for HIPAA-regulated systems and enterprise data-protection requirements.',
+        'Perform peer code reviews and collaborate with QA, business analysts, developers, and stakeholders to deliver production-ready solutions.',
       ],
     },
     {
@@ -169,7 +165,7 @@ function App() {
       bullets: [
         'Continued development and support of proprietary TPA platforms WebExchange and IWS following acquisition of HealthSmart.',
         'Expanded Java and backend development contributions through feature enhancements, bug resolution, and maintainability improvements.',
-        'Modernized front-end and back-end technologies to improve scalability, usability, and system reliability.',
+        'Upgraded legacy interfaces to modern UI frameworks and improved front-end and back-end maintainability, usability, and reliability.',
         'Collaborated with cross-functional teams to align platform capabilities with evolving business and regulatory requirements.',
         'Contributed to enterprise healthcare administration systems supporting large client populations.',
       ],
@@ -192,9 +188,9 @@ function App() {
       company: 'Commerce Benefits Group',
       range: 'October 2012 - July 2014',
       bullets: [
-        'Led development and optimization of MDLabTests.com, increasing online sales through UX, performance, and conversion improvements.',
+        'Led development and optimization of MDLabTests.com, helping sustain approximately 20% annual online-sales growth during my tenure.',
         'Modernized site design with a full visual overhaul using Joomla CMS, PHP, JavaScript, CSS, and custom templating.',
-        'Launched and managed multiple commercial websites supporting various business divisions.',
+        'Launched and managed approximately a dozen commercial websites, portals, and internal systems supporting multiple business divisions.',
         'Owned SEO strategy, social media, analytics, and digital advertising initiatives to drive traffic and revenue growth.',
         'Executed email marketing campaigns and tracked performance metrics for acquisition and retention.',
         'Generated business intelligence reporting for ownership to support strategic decision-making.',
@@ -222,7 +218,7 @@ function App() {
       bullets: [
         'Launched and expanded a new IT services division for a traditional office equipment provider.',
         'Designed offerings for PC repair, network design, website development and hosting, email solutions, and custom web applications.',
-        'Built a client base for IT services, helping transition the company from equipment sales to technology solutions.',
+        'Built the IT-services client base from zero to dozens of customers, helping transition the company from equipment sales to technology solutions.',
         'Managed projects end-to-end with strong delivery quality and client satisfaction outcomes.',
         'Applied prior ISP and business IT experience to guide service strategy and technical direction.',
       ],
@@ -232,7 +228,7 @@ function App() {
       company: 'HMC, Ltd',
       range: 'October 2004 - September 2007',
       bullets: [
-        'Managed and mentored a team of Internet Support Technicians, providing escalation support and technical guidance.',
+        'Managed and mentored three Internet Support Technicians, providing escalation support and technical guidance while working directly with the company president.',
         'Oversaw daily support operations to ensure timely resolution of connectivity and service issues.',
         'Partnered with ownership to develop and launch HMC Tech, expanding into managed IT services for local businesses.',
         'Supported transition from primarily dial-up internet services to broadband offerings.',
@@ -336,6 +332,7 @@ function App() {
   const skillAliases = {
     'Cloudflare Pages': 'Cloudflare Pages & Workers',
   }
+  const globalSkillExclusions = new Set(['Spotify Embeds', 'Web3Forms'])
 
   const projectSkills = projectGroups
     .flatMap((group) => group.projects)
@@ -343,6 +340,7 @@ function App() {
     .map((item) => item.trim())
     .filter(Boolean)
     .map((item) => skillAliases[item] ?? item)
+    .filter((item) => !globalSkillExclusions.has(item))
 
   const allSkills = Array.from(new Set([...skills, ...projectSkills])).sort((a, b) =>
     a.localeCompare(b)
@@ -393,8 +391,6 @@ function App() {
     'WordPress',
   ])
 
-  const aiSkills = new Set(['Claude Code', 'Codex'])
-
   const businessSkills = new Set([
     'Accessibility',
     'Cloud migration',
@@ -406,30 +402,27 @@ function App() {
 
   const categorizedSkills = allSkills.reduce(
     (acc, skill) => {
-      if (aiSkills.has(skill)) {
-        acc.AI.push(skill)
-      } else if (businessSkills.has(skill)) {
+      if (businessSkills.has(skill)) {
         acc.Business.push(skill)
       } else if (frontEndSkills.has(skill)) {
         acc['Front End'].push(skill)
       } else if (backEndSkills.has(skill)) {
         acc['Back End'].push(skill)
       } else if (softwareSkills.has(skill)) {
-        acc.Software.push(skill)
+        acc['Platforms & Tools'].push(skill)
       } else {
-        acc.Software.push(skill)
+        acc['Platforms & Tools'].push(skill)
       }
 
       return acc
     },
-    { 'Front End': [], 'Back End': [], Software: [], AI: [], Business: [] }
+    { 'Front End': [], 'Back End': [], 'Platforms & Tools': [], Business: [] }
   )
 
   const categoryIcons = {
     'Front End': FiMonitor,
     'Back End': FiServer,
-    Software: FiLayers,
-    AI: FiCpu,
+    'Platforms & Tools': FiLayers,
     Business: FiBriefcase,
   }
 
@@ -439,11 +432,11 @@ function App() {
         <header className="hero" id="top">
         <div className="hero-copy">
           <p className="eyebrow">Justin Musick</p>
-          <h1>Technology Leader & Full-Stack Developer</h1>
+          <h1>Senior Java & Full-Stack Software Engineer</h1>
           <p className="lede">
-            Technology leader and full-stack application developer with
-            experience spanning ISP operations, infrastructure management, web
-            development, and enterprise healthcare systems.
+            Hands-on engineer modernizing enterprise healthcare platforms used
+            by thousands of users and supporting 20+ configurable portals that
+            serve millions.
           </p>
           <div className="cta-row">
             <a className="btn btn-primary" href="#projects">
@@ -451,6 +444,9 @@ function App() {
             </a>
             <a className="btn btn-secondary" href="#contact">
               Contact Me
+            </a>
+            <a className="btn btn-secondary" href="/Justin-Musick-Resume.pdf" download>
+              <FiDownload aria-hidden="true" /> Download Résumé
             </a>
             <a
               className="btn btn-secondary"
@@ -475,11 +471,12 @@ function App() {
           <ul>
             <li>Based in: Sandusky, Ohio</li>
             <li>Current role: Associate Software Engineer at Optum</li>
-            <li>Focus: Enterprise web applications</li>
+            <li>Scale: Thousands of enterprise users; millions across OAP portals</li>
+            <li>Focus: Java, full-stack modernization, and technical leadership</li>
           </ul>
           <p>
-            Proven track record in modernizing platforms, improving user
-            experience, and delivering scalable, compliant solutions.
+            Remote preferred; open to opportunities within roughly one hour of
+            Sandusky.
           </p>
           <div className="hero-profile-links">
             <a href={githubUrl} target="_blank" rel="noreferrer" className="hero-github">
@@ -499,11 +496,12 @@ function App() {
             <span>About</span>
           </h2>
           <p>
-            I combine hands-on engineering with strategic business insight,
-            helping teams modernize legacy systems, launch digital initiatives,
-            and improve performance across customer-facing and internal
-            platforms. My background includes healthcare applications,
-            infrastructure operations, and IT service leadership.
+            I am a senior hands-on Java and full-stack engineer with experience
+            modernizing enterprise healthcare systems, developing secure
+            customer-facing and internal applications, and reviewing peer code.
+            Earlier in my career, I built IT service divisions, managed technical
+            staff, and worked directly with company leadership—experience I am
+            now bringing toward technical leadership and engineering management.
           </p>
         </section>
 
@@ -570,7 +568,7 @@ function App() {
                         loading="lazy"
                       />
                     )}
-                    <h3>{project.name}</h3>
+                    <h4>{project.name}</h4>
                     <p>{project.description}</p>
                     <div className="project-card-footer">
                       <ul className="project-stack">
@@ -646,6 +644,11 @@ function App() {
             <FiMail aria-hidden="true" />
             <span>Contact</span>
           </h2>
+          <p>
+            Email me directly at{' '}
+            <a href="mailto:justin.musick@gmail.com">justin.musick@gmail.com</a>
+            {' '}or use the form below.
+          </p>
           
           <form onSubmit={handleFormSubmit} className="contact-form">
             <div className="form-group">
