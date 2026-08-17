@@ -5,7 +5,6 @@ import {
   FiBriefcase,
   FiChevronDown,
   FiCpu,
-  FiDownload,
   FiExternalLink,
   FiGithub,
   FiLayers,
@@ -445,9 +444,6 @@ function App() {
             <a className="btn btn-secondary" href="#contact">
               Contact Me
             </a>
-            <a className="btn btn-secondary" href="/Justin-Musick-Resume.pdf" download>
-              <FiDownload aria-hidden="true" /> Download Résumé
-            </a>
             <a
               className="btn btn-secondary"
               href={githubUrl}
@@ -649,7 +645,7 @@ function App() {
             <a href="mailto:justin.musick@gmail.com">justin.musick@gmail.com</a>
             {' '}or use the form below.
           </p>
-          
+
           <form onSubmit={handleFormSubmit} className="contact-form">
             <div className="form-group">
               <label htmlFor="name">Name</label>
