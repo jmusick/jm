@@ -32,3 +32,6 @@ env/
 *.njsproj
 *.sln
 *.sw?
+
+# Local working checklist (audit findings) — not a deliverable
+TODO.md

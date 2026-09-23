@@ -118,6 +118,17 @@ function App() {
           image: '/projects/dorianblack.png',
         },
         {
+          name: 'JD Musick',
+          description:
+            'Official artist site for electric blues and soul musician JD Musick, featuring the debut album The Road Still Knows, a tracklist, streaming links, artist information, and a protected contact form.',
+          stack: 'Astro, TypeScript, HTML, CSS, Cloudflare Pages, Cloudflare Turnstile, Cloudflare Email Sending',
+          liveLink: 'https://jdmusick.band/',
+          liveLinkText: 'View Project',
+          link: 'https://github.com/jmusick/JDMusick',
+          linkText: 'Site Repo',
+          image: '/projects/jdmusick.png',
+        },
+        {
           name: 'Pneumaris Band',
           description:
             'Official web presence for Pneumaris, an atmospheric music project featuring releases, band information, and social/listening links.',
