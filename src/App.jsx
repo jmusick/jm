@@ -489,6 +489,9 @@ function App() {
 
   return (
     <>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <div className="site-shell">
         <header className="hero" id="top">
         <div className="hero-copy">
@@ -547,7 +550,7 @@ function App() {
         </aside>
         </header>
 
-      <main>
+      <main id="main">
         <section className="panel" id="about">
           <h2 className="section-title">
             <FiCpu aria-hidden="true" />

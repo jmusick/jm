@@ -10,6 +10,8 @@ A modern, interactive portfolio and resume site built with React and Vite, live 
 - **Contact Form** — Cloudflare Pages Function with Turnstile spam protection and Cloudflare Email Sending; no email address is published on the site
 - **Dark Theme** — Neutral slate color palette optimized for readability
 - **Responsive Design** — Adapts to mobile, tablet, and desktop viewports
+- **Accessibility** — Skip link, visible keyboard focus, and reduced-motion support
+- **Security Headers** — Enforced Content Security Policy and HSTS via `public/_headers`
 - **SEO** — Open Graph and Twitter tags, JSON-LD, sitemap, and robots.txt
 
 ## Tech Stack
@@ -83,7 +85,7 @@ Build settings:
 - **Build command:** `npm run build`
 - **Build output directory:** `dist`
 
-`wrangler.toml` is the Pages config: project name, Functions compatibility date, and plaintext `[vars]`. Because the file is present, Pages treats it as the source of truth for plaintext variables, so change them there rather than in the dashboard. `public/_headers` sets security and cache headers.
+`wrangler.toml` is the Pages config: project name, Functions compatibility date, and plaintext `[vars]`. Because the file is present, Pages treats it as the source of truth for plaintext variables, so change them there rather than in the dashboard. `public/_headers` sets cache headers and security headers, including a Content Security Policy that allows only the site itself, Turnstile, and Google Fonts. If you add a third-party script, font, or API, add its origin to the policy too. The Vite dev server ignores `_headers`; `npx wrangler pages dev dist` applies it.
 
 ### Contact form configuration
 
@@ -118,7 +120,7 @@ src/
 └── main.jsx            # React entry point
 
 public/
-├── _headers            # Cloudflare cache & security headers
+├── _headers            # Cloudflare cache & security headers (CSP, HSTS)
 ├── bg.png              # Hero background and social share image
 ├── favicon.png
 ├── projects/           # Project screenshot images

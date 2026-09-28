@@ -506,6 +506,12 @@ main {
   background: rgba(15, 19, 24, 0.8);
 }
 
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
 .form-group textarea {
   resize: vertical;
   min-height: 120px;
@@ -565,6 +571,24 @@ main {
   color: #fca5a5;
 }
 
+.skip-link {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 .site-shell,
 .hero,
 .panel,
@@ -572,6 +596,17 @@ main {
 .timeline-item,
 .hero-card {
   animation: fadeUp 0.45s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 @keyframes fadeUp {

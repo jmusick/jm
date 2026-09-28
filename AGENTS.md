@@ -31,7 +31,7 @@ src/App.css               # component styles
 src/index.css             # global styles, Google Fonts import, theme tokens (CSS variables on :root)
 src/main.jsx              # React entry point
 functions/api/contact.js  # Pages Function: POST /api/contact (Turnstile check + Cloudflare Email Sending)
-public/_headers           # Cloudflare security and cache headers
+public/_headers           # Cloudflare security (CSP, HSTS) and cache headers
 public/sitemap.xml        # sitemap (update <lastmod> when content changes)
 public/robots.txt
 public/projects/          # project screenshots, referenced as /projects/<name>.png
@@ -72,6 +72,31 @@ If you change the headline, title or role, update `index.html` to match: `<title
 - Functions code in `functions/` follows the same JS style and is linted with the rest of the repo.
 - Do not publish a personal email address anywhere (page, `index.html` meta or JSON-LD, or committed config; the repo is public). All contact goes through the form.
 - Do not add a downloadable resume to `public/`. It was removed on purpose.
+
+## Security headers
+
+`public/_headers` sets an enforced `Content-Security-Policy`, HSTS and the usual hardening headers for every path. The CSP allows only:
+
+- `'self'` for scripts, styles, images, `fetch` (`/api/contact`) and form posts.
+- `https://challenges.cloudflare.com` in `script-src` and `frame-src`, for the Turnstile widget.
+- `https://fonts.googleapis.com` in `style-src` and `https://fonts.gstatic.com` in `font-src`, for the Google Fonts import in `src/index.css`.
+
+It has no `'unsafe-inline'`, so:
+
+- Do not add inline `<script>` or `<style>` blocks, `on*` attributes or `javascript:` URLs. The JSON-LD `<script type="application/ld+json">` in `index.html` is data, so CSP does not block it.
+- Any new third-party script, font, iframe, image or API origin must be added to the matching directive in the same change, or it fails silently in production. Check the browser console for CSP violations.
+- If Cloudflare Web Analytics is turned on, it injects a beacon that needs `https://static.cloudflareinsights.com` in `script-src` and `https://cloudflareinsights.com` in `connect-src`.
+
+`npm run dev` does not apply `_headers`. To test headers locally, use `npm run build && npx wrangler pages dev dist`.
+
+## Accessibility
+
+Keep these in place when editing markup or styles:
+
+- The first rendered element is a `.skip-link` to `<main id="main">`. Keep the `id` if you restructure `<main>`.
+- Form fields show a visible `:focus-visible` outline, not just a border color change. Do not remove outlines without a replacement that does not rely on color alone.
+- A global `@media (prefers-reduced-motion: reduce)` block in `src/App.css` cuts animations, transitions and smooth scrolling. New animations are covered automatically.
+- There is exactly one `<h1>`, and heading levels do not skip. Decorative icons get `aria-hidden="true"`, and every form field has a real `<label>`.
 - `TODO.md` is a local, git-ignored working checklist. Do not commit it.
 
 ## Versioning and commits
