@@ -1,16 +1,12 @@
+# Cloudflare Pages config. The name must match the Pages project exactly.
+# With this file present, Pages treats it as the source of truth for plaintext
+# variables and bindings. Secrets stay in the Pages dashboard (or are set with
+# `wrangler pages secret put NAME --project-name jm`) and are never committed.
 name = "jm"
-main = "dist/index.html"
-type = "javascript"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-05-11"
 
-[env.production]
-routes = [
-  { pattern = "justinmusick.com", zone_name = "justinmusick.com" }
-]
-
-[build]
-command = "npm run build"
-cwd = "./"
-watch_paths = ["src/**/*.jsx", "src/**/*.css", "index.html", "public/**/*"]
-
-[[build.upload]]
-format = "service-worker"
+[vars]
+CF_ACCOUNT_ID = "fdabb6996edf7688fdaf7c8c367f7d08"
+EMAIL_FROM_CONTACT = "contact@justinmusick.com"
+TURNSTILE_HOSTNAMES = "justinmusick.com,www.justinmusick.com"

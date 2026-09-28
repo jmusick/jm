@@ -1,6 +1,5 @@
 import './App.css'
-import { useState, useRef } from 'react'
-import HCaptcha from '@hcaptcha/react-hcaptcha'
+import { useEffect, useState, useRef } from 'react'
 import {
   FiBriefcase,
   FiChevronDown,
@@ -14,6 +13,30 @@ import {
   FiMail,
   FiTool,
 } from 'react-icons/fi'
+
+// Turnstile site keys are public. Local runs (vite dev or wrangler pages dev)
+// use Cloudflare's always-pass test key, which pairs with the test secret in
+// .dev.vars.example.
+const TURNSTILE_SITE_KEY = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+  ? '1x00000000000000000000AA'
+  : '0x4AAAAAAFFsS0J0AZW7rS83'
+
+let turnstileLoader
+const loadTurnstile = () => {
+  turnstileLoader ??= new Promise((resolve, reject) => {
+    const script = document.createElement('script')
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+    script.async = true
+    script.onload = () => resolve(window.turnstile)
+    script.onerror = () => {
+      turnstileLoader = undefined
+      script.remove()
+      reject(new Error('Turnstile failed to load'))
+    }
+    document.head.appendChild(script)
+  })
+  return turnstileLoader
+}
 
 function App() {
   const githubUrl = 'https://github.com/jmusick'
@@ -278,14 +301,52 @@ function App() {
     `${experience[0].company}-${experience[0].range}`
   )
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  })
+  const emptyForm = { name: '', email: '', message: '', website: '' }
+  const [formData, setFormData] = useState(emptyForm)
   const [formStatus, setFormStatus] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const hCaptchaRef = useRef(null)
+  const [captchaToken, setCaptchaToken] = useState('')
+  const turnstileRef = useRef(null)
+  const turnstileWidgetId = useRef(null)
+
+  useEffect(() => {
+    let cancelled = false
+
+    loadTurnstile()
+      .then((turnstile) => {
+        if (cancelled || !turnstileRef.current) return
+        turnstileWidgetId.current = turnstile.render(turnstileRef.current, {
+          sitekey: TURNSTILE_SITE_KEY,
+          action: 'contact',
+          theme: 'dark',
+          callback: setCaptchaToken,
+          'expired-callback': () => setCaptchaToken(''),
+          'error-callback': () => setCaptchaToken(''),
+        })
+      })
+      .catch(() => {
+        setFormStatus({
+          type: 'error',
+          message: 'The spam check could not load. Please refresh the page and try again.',
+        })
+      })
+
+    return () => {
+      cancelled = true
+      if (turnstileWidgetId.current !== null) {
+        window.turnstile?.remove(turnstileWidgetId.current)
+        turnstileWidgetId.current = null
+      }
+    }
+  }, [])
+
+  // Turnstile tokens are single-use, so get a fresh one after every attempt.
+  const resetCaptcha = () => {
+    setCaptchaToken('')
+    if (turnstileWidgetId.current !== null) {
+      window.turnstile?.reset(turnstileWidgetId.current)
+    }
+  }
 
   const handleFormChange = (e) => {
     const { name, value } = e.target
@@ -294,45 +355,35 @@ function App() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault()
+
+    if (!captchaToken) {
+      setFormStatus({ type: 'error', message: 'Please wait for the spam check to finish, then try again.' })
+      return
+    }
+
     setIsSubmitting(true)
     setFormStatus(null)
 
     try {
-      const captchaToken = hCaptchaRef.current?.getResponse()
-      if (!captchaToken) {
-        setFormStatus({ type: 'error', message: 'Please complete the CAPTCHA' })
-        setIsSubmitting(false)
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, captchaToken }),
+      })
+      const result = await response.json().catch(() => null)
+
+      if (!response.ok) {
+        setFormStatus({ type: 'error', message: result?.error || 'Failed to send message. Please try again.' })
         return
       }
 
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_key: '04a0f1d5-6e75-45b7-9e09-24993050c6e4',
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          'h-captcha-response': captchaToken,
-        }),
-      })
-
-      if (!response.ok) {
-        throw new Error(`HTTP Error: ${response.status}`)
-      }
-
-      const result = await response.json()
-
-      if (result.success) {
-        setFormStatus({ type: 'success', message: "Message sent! I'll get back to you soon." })
-        setFormData({ name: '', email: '', message: '' })
-      } else {
-        setFormStatus({ type: 'error', message: result.message || 'Failed to send message. Please try again.' })
-      }
+      setFormStatus({ type: 'success', message: result?.message || "Message sent! I'll get back to you soon." })
+      setFormData(emptyForm)
     } catch (error) {
       console.error('Form submission error:', error)
-      setFormStatus({ type: 'error', message: `Error: ${error.message}` })
+      setFormStatus({ type: 'error', message: 'Could not reach the server. Please try again in a moment.' })
     } finally {
+      resetCaptcha()
       setIsSubmitting(false)
     }
   }
@@ -651,11 +702,7 @@ function App() {
             <FiMail aria-hidden="true" />
             <span>Contact</span>
           </h2>
-          <p>
-            Email me directly at{' '}
-            <a href="mailto:justin.musick@gmail.com">justin.musick@gmail.com</a>
-            {' '}or use the form below.
-          </p>
+          <p>Send me a message using the form below.</p>
 
           <form onSubmit={handleFormSubmit} className="contact-form">
             <div className="form-group">
@@ -697,11 +744,20 @@ function App() {
               />
             </div>
 
-            <HCaptcha
-              ref={hCaptchaRef}
-              sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
-              reCaptchaCompat={false}
-            />
+            <div className="form-honeypot" aria-hidden="true">
+              <label htmlFor="website">Website</label>
+              <input
+                type="text"
+                id="website"
+                name="website"
+                value={formData.website}
+                onChange={handleFormChange}
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
+
+            <div ref={turnstileRef} className="cf-turnstile" />
 
             <button
               type="submit"

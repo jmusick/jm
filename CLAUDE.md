@@ -1,0 +1,5 @@
+# CLAUDE.md
+
+All project instructions for AI agents are in [AGENTS.md](AGENTS.md).
+
+@AGENTS.md

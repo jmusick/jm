@@ -1,59 +1,64 @@
 # Justin Musick — Portfolio
 
-A modern, interactive portfolio and resume site built with React and Vite. Features a professional design, complete work history, project showcase, and contact form.
+A modern, interactive portfolio and resume site built with React and Vite, live at [justinmusick.com](https://justinmusick.com). Features a professional design, complete work history, project showcase, and contact form.
 
 ## Features
 
 - **Interactive Experience Timeline** — Accordion-style expandable work history with full role descriptions and achievements
-- **Project Showcase** — Organized portfolio with 6+ projects, including live links and GitHub repositories
-- **Skill Categorization** — Skills organized into Front End, Back End, Software, and Business categories
-- **Contact Form** — Web3Forms integration with hCaptcha spam protection
+- **Project Showcase** — Professional and personal projects, with live links, GitHub repositories, and screenshots
+- **Skill Categorization** — Skills grouped into Front End, Back End, Platforms & Tools, and Business, merged automatically from the project stacks
+- **Contact Form** — Cloudflare Pages Function with Turnstile spam protection and Cloudflare Email Sending; no email address is published on the site
 - **Dark Theme** — Neutral slate color palette optimized for readability
 - **Responsive Design** — Adapts to mobile, tablet, and desktop viewports
-- **Fast Performance** — Built with Vite for rapid development and optimized production builds
-- **Cloudflare Pages Ready** — Includes _headers and wrangler.toml for seamless deployment
+- **SEO** — Open Graph and Twitter tags, JSON-LD, sitemap, and robots.txt
 
 ## Tech Stack
 
 - **Frontend:** React 19, Vite 8
 - **Icons:** react-icons (Feather set)
-- **Forms:** Web3Forms + hCaptcha
-- **Fonts:** Manrope, Plus Jakarta Sans, IBM Plex Mono
+- **Contact form:** Cloudflare Pages Functions, Turnstile, Email Sending
+- **Fonts:** Manrope, Plus Jakarta Sans, IBM Plex Mono (Google Fonts)
 - **Deployment:** Cloudflare Pages
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 16+ and npm
+- Node.js 20.19+ or 22.12+ (required by Vite 8) and npm
 
 ### Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/jmusick/jm.git
-   cd jm
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+git clone https://github.com/jmusick/jm.git
+cd jm
+npm install
+```
 
 ### Development
 
-Start the local dev server:
+Start the local dev server at http://localhost:5173:
 
 ```bash
 npm run dev
 ```
 
-Alternatively, use VS Code's Run & Debug feature:
-1. Open the Run and Debug panel (Ctrl+Shift+D)
-2. Select "Run Vite Site (Firefox)"
-3. Click Start Debugging
+Lint the project:
 
-The site will open in Firefox at http://localhost:5173
+```bash
+npm run lint
+```
+
+The Vite dev server does not run the contact form's `/api/contact` Function, so submitting fails under `npm run dev`. To test the form end to end locally:
+
+1. Copy `.dev.vars.example` to `.dev.vars` and fill in the values (the file is git-ignored).
+2. Build and serve the site with its Functions at http://localhost:8788:
+
+   ```bash
+   npm run build
+   npx wrangler pages dev dist
+   ```
+
+On `localhost` the page uses Cloudflare's always-pass Turnstile test key, which pairs with the test secret in `.dev.vars.example`. With a real `CF_EMAIL_API_TOKEN` in `.dev.vars`, local submissions send real email.
 
 ### Building
 
@@ -63,9 +68,7 @@ Build for production:
 npm run build
 ```
 
-Output is in the `dist/` directory.
-
-Preview the build locally:
+Output is in the `dist/` directory. Preview the build locally (static files only, no Functions):
 
 ```bash
 npm run preview
@@ -73,45 +76,59 @@ npm run preview
 
 ## Deployment
 
-This site is deployed on Cloudflare Pages at **justinmusick.com**.
+The site is deployed on Cloudflare Pages (project `jm`) and auto-deploys on push to the `master` branch.
 
-### Cloudflare Pages Setup
+Build settings:
 
-1. Connect your GitHub repo to Cloudflare Pages
-2. Configure build settings:
-   - **Framework preset:** React (Vite)
-   - **Build command:** npm run build
-   - **Build output directory:** dist
-3. Cloudflare will auto-deploy on push to the `master` branch
+- **Build command:** `npm run build`
+- **Build output directory:** `dist`
 
-The included `wrangler.toml` and `public/_headers` files handle Workers configuration and HTTP headers.
+`wrangler.toml` is the Pages config: project name, Functions compatibility date, and plaintext `[vars]`. Because the file is present, Pages treats it as the source of truth for plaintext variables, so change them there rather than in the dashboard. `public/_headers` sets security and cache headers.
 
-## Environment Variables
+### Contact form configuration
 
-If using Web3Forms with a custom access key, add to `.env.local`:
+The contact form Function (`functions/api/contact.js`) reads these plaintext variables from `wrangler.toml`:
 
-```
-VITE_WEB3FORMS_KEY=your_access_key_here
-```
+| Variable | Purpose |
+|---|---|
+| `CF_ACCOUNT_ID` | Cloudflare account that sends the email |
+| `EMAIL_FROM_CONTACT` | Sender address, on a domain onboarded to Email Sending |
+| `TURNSTILE_HOSTNAMES` | Comma-separated hostnames Turnstile tokens must come from |
 
-(Currently configured for form submission with embedded key.)
+And these secrets, set in the Pages dashboard under **Settings → Variables and secrets** (or with `npx wrangler pages secret put NAME --project-name jm`):
+
+| Secret | Purpose |
+|---|---|
+| `CF_EMAIL_API_TOKEN` | Cloudflare API token with **Email Sending: Edit** |
+| `TURNSTILE_SECRET_KEY` | Turnstile widget secret key |
+| `CONTACT_TO_EMAIL` | Inbox that receives form messages |
+
+The repository is public, so secrets and the destination inbox are never committed. If the site gets a new domain, add it to both the Turnstile widget's hostnames and `TURNSTILE_HOSTNAMES`.
 
 ## Project Structure
 
 ```
+functions/
+└── api/contact.js      # Contact form endpoint (Pages Function)
+
 src/
-├── App.jsx          # Main component with all content
-├── App.css          # Component styling
-├── index.css        # Global styles and theme variables
-└── main.jsx         # React entry point
+├── App.jsx             # Main component with all content
+├── App.css             # Component styling
+├── index.css           # Global styles and theme variables
+└── main.jsx            # React entry point
 
 public/
-├── _headers         # Cloudflare cache & security headers
-├── bg.png           # Hero background image
-└── projects/        # Project screenshot images
+├── _headers            # Cloudflare cache & security headers
+├── bg.png              # Hero background and social share image
+├── favicon.png
+├── projects/           # Project screenshot images
+├── robots.txt
+└── sitemap.xml
 
-wrangler.toml        # Cloudflare Workers config
-package.json         # Dependencies and build scripts
+index.html              # Page shell with SEO metadata and JSON-LD
+wrangler.toml           # Cloudflare Pages config
+.dev.vars.example       # Template for local Function secrets
+AGENTS.md               # Guidance for AI coding agents
 ```
 
 ## Customization
@@ -129,15 +146,15 @@ Edit CSS variables in `src/index.css` under `:root`:
 
 ### Content
 
-All content (experience, projects, skills) is in `src/App.jsx`. Update the data structures:
-- `experience[]` — Work history
-- `projectGroups[]` — Project portfolio
-- `skills[]` — Core skills list
+All content lives in `src/App.jsx`:
 
-### Form
+- `experience` — Work history
+- `projectGroups` — Project portfolio, grouped (`UnitedHealthcare`, `Personal`)
+- `skills` — Base skills list
 
-- **Access Key:** Web3Forms key is in handleFormSubmit
-- **CAPTCHA:** Using hCaptcha free tier (site key: `50b2fe65-b00b-4b9e-ad62-3ba471098be2`)
+Each project's `stack` is merged into the skills list. New skills are sorted into categories by the `frontEndSkills`, `backEndSkills`, `softwareSkills`, and `businessSkills` sets, and anything not listed falls into Platforms & Tools. See [AGENTS.md](AGENTS.md) for the details.
+
+If you change the title or role, also update the metadata and JSON-LD in `index.html`.
 
 ## License
 
@@ -145,5 +162,4 @@ Personal portfolio — all rights reserved.
 
 ## Contact
 
-For inquiries, use the contact form at justinmusick.com or reach out via GitHub.
-
+For inquiries, use the contact form at [justinmusick.com](https://justinmusick.com/#contact) or reach out via GitHub.

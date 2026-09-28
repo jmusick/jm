@@ -35,3 +35,9 @@ env/
 
 # Local working checklist (audit findings) — not a deliverable
 TODO.md
+
+# Cloudflare Pages Functions local secrets
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.wrangler/

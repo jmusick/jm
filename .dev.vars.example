@@ -1,0 +1,6 @@
+# Copy to .dev.vars for `npx wrangler pages dev`. Never commit .dev.vars.
+# The Turnstile secret below is Cloudflare's always-pass test key; it pairs
+# with the test site key the app uses in dev builds.
+CF_EMAIL_API_TOKEN=your-email-sending-api-token
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+CONTACT_TO_EMAIL=you@example.com
