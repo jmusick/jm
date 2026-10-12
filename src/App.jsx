@@ -3,21 +3,20 @@ import { useEffect, useState, useRef } from 'react'
 import {
   FiBriefcase,
   FiChevronDown,
-  FiCpu,
   FiExternalLink,
   FiGithub,
   FiLayers,
   FiLinkedin,
   FiMonitor,
   FiServer,
-  FiMail,
-  FiTool,
 } from 'react-icons/fi'
 
 // Turnstile site keys are public. Local runs (vite dev or wrangler pages dev)
 // use Cloudflare's always-pass test key, which pairs with the test secret in
 // .dev.vars.example.
-const TURNSTILE_SITE_KEY = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+const TURNSTILE_SITE_KEY = ['localhost', '127.0.0.1'].includes(
+  window.location.hostname
+)
   ? '1x00000000000000000000AA'
   : '0x4AAAAAAFFsS0J0AZW7rS83'
 
@@ -25,7 +24,8 @@ let turnstileLoader
 const loadTurnstile = () => {
   turnstileLoader ??= new Promise((resolve, reject) => {
     const script = document.createElement('script')
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+    script.src =
+      'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
     script.async = true
     script.onload = () => resolve(window.turnstile)
     script.onerror = () => {
@@ -83,14 +83,16 @@ function App() {
           name: 'WebExchange Client Portal',
           description:
             'Modernized and enhanced a secure healthcare portal serving thousands of users, with claims, deductible tracking, documentation requests, and dispute workflows.',
-          stack: 'Java, Struts, Spring, JavaScript, CSS, Bootstrap, jQuery, Jinja, REST',
+          stack:
+            'Java, Struts, Spring, JavaScript, CSS, Bootstrap, jQuery, Jinja, REST',
           showGithub: false,
         },
         {
           name: 'IWS Internal Workflow System',
           description:
             'Delivered backend and UI modernization for a platform used across dozens of departments, supporting document indexing, OCR, configurable workflows, and role-based security.',
-          stack: 'Java, Struts, Spring, JavaScript, CSS, Bootstrap, jQuery, Jinja, REST',
+          stack:
+            'Java, Struts, Spring, JavaScript, CSS, Bootstrap, jQuery, Jinja, REST',
           showGithub: false,
         },
         {
@@ -106,16 +108,28 @@ function App() {
       title: 'Personal',
       projects: [
         {
+          name: 'Firelands Current',
+          description:
+            'Built an independent local-news platform for Sandusky and the Firelands, with article publishing, an events calendar, threaded community discussions, reader accounts, a media library, and advertising management.',
+          stack:
+            'Astro, TypeScript, Cloudflare Workers, D1, R2, Better Auth, Cloudflare Turnstile, Cloudflare Email Sending',
+          liveLink: 'https://firelandscurrent.com/',
+          liveLinkText: 'View website',
+          link: 'https://github.com/jmusick/firelands-current',
+          linkText: 'Site repo',
+          image: '/projects/firelands-current.png',
+        },
+        {
           name: 'Tagstash',
           description:
             'Designed and built an end-to-end, multi-user bookmarking application with active users, including the database architecture, React interface, browser extension, email verification, REST APIs, and Stripe subscription system.',
           stack: 'React, Cloudflare Pages & Workers, D1, Stripe, Resend, REST',
           liveLink: 'https://tagsta.sh/',
-          liveLinkText: 'View Project',
+          liveLinkText: 'View website',
           link: 'https://github.com/jmusick/Tagstash',
-          linkText: 'Site Repo',
+          linkText: 'Site repo',
           secondaryLink: 'https://github.com/jmusick/TagstashExtension',
-          secondaryLinkText: 'Extension Repo',
+          secondaryLinkText: 'Extension repo',
           image: '/projects/tagstash.png',
         },
         {
@@ -124,9 +138,9 @@ function App() {
             'Author site for Simon Rook, presenting the book The Stoic Mind for Overthinkers with a typed book catalogue, detail pages, and retailer links. Palette and typography derive from the cover art.',
           stack: 'Astro, TypeScript, HTML, CSS, Cloudflare Pages',
           liveLink: 'https://simonrook.com/',
-          liveLinkText: 'View Project',
+          liveLinkText: 'View website',
           link: 'https://github.com/jmusick/SimonRook',
-          linkText: 'Site Repo',
+          linkText: 'Site repo',
           image: '/projects/simonrook.png',
         },
         {
@@ -135,20 +149,21 @@ function App() {
             'Official artist site for synth-pop project Dorian Black, featuring the album After Tonight with an embedded Spotify player, full tracklist, artist bio, and streaming links.',
           stack: 'Astro, JavaScript, HTML, CSS, Spotify Embeds',
           liveLink: 'https://dorianblack.com/',
-          liveLinkText: 'View Project',
+          liveLinkText: 'View website',
           link: 'https://github.com/jmusick/DorianBlack',
-          linkText: 'Site Repo',
+          linkText: 'Site repo',
           image: '/projects/dorianblack.png',
         },
         {
           name: 'JD Musick',
           description:
             'Official artist site for electric blues and soul musician JD Musick, featuring the debut album The Road Still Knows, a tracklist, streaming links, artist information, and a protected contact form.',
-          stack: 'Astro, TypeScript, HTML, CSS, Cloudflare Pages, Cloudflare Turnstile, Cloudflare Email Sending',
+          stack:
+            'Astro, TypeScript, HTML, CSS, Cloudflare Pages, Cloudflare Turnstile, Cloudflare Email Sending',
           liveLink: 'https://jdmusick.band/',
-          liveLinkText: 'View Project',
+          liveLinkText: 'View website',
           link: 'https://github.com/jmusick/JDMusick',
-          linkText: 'Site Repo',
+          linkText: 'Site repo',
           image: '/projects/jdmusick.png',
         },
         {
@@ -157,20 +172,21 @@ function App() {
             'Official web presence for Pneumaris, an atmospheric music project featuring releases, band information, and social/listening links.',
           stack: 'Astro, JavaScript, HTML, CSS, Web3Forms',
           liveLink: 'https://pneumarisband.com/',
-          liveLinkText: 'View Project',
+          liveLinkText: 'View website',
           link: 'https://github.com/jmusick/pneumaris',
-          linkText: 'Site Repo',
+          linkText: 'Site repo',
           image: '/projects/pneumaris.png',
         },
         {
           name: 'The Hidden Lodge',
           description:
             'Built a full-stack guild operations platform with Blizzard authentication and APIs, D1-backed administration and analytics, scheduled data refreshes, a Python desktop bridge, and a Lua WoW addon that exchanges preparedness, attendance, Great Vault, upgrade, and loot-history data through authenticated REST endpoints.',
-          stack: 'Astro, TypeScript, Cloudflare Pages & Workers, D1, Blizzard OAuth & API, REST, Python, Lua, GitHub Actions',
+          stack:
+            'Astro, TypeScript, Cloudflare Pages & Workers, D1, Blizzard OAuth & API, REST, Python, Lua, GitHub Actions',
           liveLink: 'https://hidden-lodge.com/',
-          liveLinkText: 'View Project',
+          liveLinkText: 'View website',
           link: 'https://github.com/jmusick/HiddenLodgeWebsite',
-          linkText: 'Site Repo',
+          linkText: 'Site repo',
           image: '/projects/hiddenlodge.png',
         },
       ],
@@ -318,7 +334,8 @@ function App() {
         turnstileWidgetId.current = turnstile.render(turnstileRef.current, {
           sitekey: TURNSTILE_SITE_KEY,
           action: 'contact',
-          theme: 'dark',
+          theme: 'light',
+          size: 'compact',
           callback: setCaptchaToken,
           'expired-callback': () => setCaptchaToken(''),
           'error-callback': () => setCaptchaToken(''),
@@ -327,7 +344,8 @@ function App() {
       .catch(() => {
         setFormStatus({
           type: 'error',
-          message: 'The spam check could not load. Please refresh the page and try again.',
+          message:
+            'The spam check could not load. Please refresh the page and try again.',
         })
       })
 
@@ -357,7 +375,10 @@ function App() {
     e.preventDefault()
 
     if (!captchaToken) {
-      setFormStatus({ type: 'error', message: 'Please wait for the spam check to finish, then try again.' })
+      setFormStatus({
+        type: 'error',
+        message: 'Please wait for the spam check to finish, then try again.',
+      })
       return
     }
 
@@ -373,15 +394,24 @@ function App() {
       const result = await response.json().catch(() => null)
 
       if (!response.ok) {
-        setFormStatus({ type: 'error', message: result?.error || 'Failed to send message. Please try again.' })
+        setFormStatus({
+          type: 'error',
+          message: result?.error || 'Failed to send message. Please try again.',
+        })
         return
       }
 
-      setFormStatus({ type: 'success', message: result?.message || "Message sent! I'll get back to you soon." })
+      setFormStatus({
+        type: 'success',
+        message: result?.message || "Message sent! I'll get back to you soon.",
+      })
       setFormData(emptyForm)
     } catch (error) {
       console.error('Form submission error:', error)
-      setFormStatus({ type: 'error', message: 'Could not reach the server. Please try again in a moment.' })
+      setFormStatus({
+        type: 'error',
+        message: 'Could not reach the server. Please try again in a moment.',
+      })
     } finally {
       resetCaptcha()
       setIsSubmitting(false)
@@ -392,6 +422,7 @@ function App() {
   // rolls those up so near-identical entries don't sit next to each other.
   const skillAliases = {
     'Cloudflare Pages': 'Cloudflare Pages & Workers',
+    'Cloudflare Workers': 'Cloudflare Pages & Workers',
   }
   const globalSkillExclusions = new Set(['Spotify Embeds', 'Web3Forms'])
 
@@ -403,8 +434,8 @@ function App() {
     .map((item) => skillAliases[item] ?? item)
     .filter((item) => !globalSkillExclusions.has(item))
 
-  const allSkills = Array.from(new Set([...skills, ...projectSkills])).sort((a, b) =>
-    a.localeCompare(b)
+  const allSkills = Array.from(new Set([...skills, ...projectSkills])).sort(
+    (a, b) => a.localeCompare(b)
   )
 
   const frontEndSkills = new Set([
@@ -422,6 +453,7 @@ function App() {
   ])
 
   const backEndSkills = new Set([
+    'Better Auth',
     'C#',
     'Cron',
     'CRUD',
@@ -442,9 +474,12 @@ function App() {
     'AEM',
     'AWS',
     'Azure',
+    'Cloudflare Email Sending',
     'Cloudflare Pages & Workers',
+    'Cloudflare Turnstile',
     'Joomla',
     'Kentico',
+    'R2',
     'Resend',
     'Stripe',
     'Unity',
@@ -492,298 +527,360 @@ function App() {
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <div className="site-shell">
-        <header className="hero" id="top">
-        <div className="hero-copy">
-          <p className="eyebrow">Justin Musick</p>
-          <h1>Senior Java & Full-Stack Software Engineer</h1>
-          <p className="lede">
-            Hands-on engineer modernizing enterprise healthcare platforms used
-            by thousands of users and supporting 20+ configurable portals that
-            serve millions.
-          </p>
-          <div className="cta-row">
-            <a className="btn btn-primary" href="#projects">
-              View Projects
-            </a>
-            <a className="btn btn-secondary" href="#contact">
-              Contact Me
-            </a>
-            <a
-              className="btn btn-secondary"
-              href={githubUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FiGithub aria-hidden="true" /> GitHub
-            </a>
-            <a
-              className="btn btn-secondary"
-              href={linkedInUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FiLinkedin aria-hidden="true" /> LinkedIn
-            </a>
+      <div className="site-shell" id="top">
+        <nav className="site-nav" aria-label="Main navigation">
+          <a className="wordmark" href="#top" aria-label="Justin Musick, back to top">
+            <svg className="brand-mark" viewBox="0 0 64 58" aria-hidden="true">
+              <circle cx="17" cy="8" r="3" />
+              <path d="M17 20v21c0 7-4 11-11 11H4M30 42V8l14 22L58 8v34" />
+            </svg>
+          </a>
+          <div className="nav-links">
+            <a href="#projects">Projects</a>
+            <a href="#experience">Experience</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
           </div>
-        </div>
-        <aside className="hero-card">
-          <h2>Quick Snapshot</h2>
-          <ul>
-            <li>Based in: Sandusky, Ohio</li>
-            <li>Current role: Associate Software Engineer at Optum</li>
-            <li>Scale: Thousands of enterprise users; millions across OAP portals</li>
-            <li>Focus: Java, full-stack modernization, and technical leadership</li>
-          </ul>
-          <p>
-            Remote preferred; open to opportunities within roughly one hour of
-            Sandusky.
-          </p>
-          <div className="hero-profile-links">
-            <a href={githubUrl} target="_blank" rel="noreferrer" className="hero-github">
-              <FiGithub aria-hidden="true" /> github.com/jmusick
-            </a>
-            <a href={linkedInUrl} target="_blank" rel="noreferrer" className="hero-github">
-              <FiLinkedin aria-hidden="true" /> linkedin.com/in/jdmusick
-            </a>
+        </nav>
+        <header className="hero">
+          <div className="hero-copy">
+            <p className="hero-name">Justin Musick</p>
+            <h1>Senior Java & Full-Stack Software Engineer</h1>
+            <p className="lede">
+              Hands-on engineer modernizing enterprise healthcare platforms used
+              by thousands of users and supporting 20+ configurable portals that
+              serve millions.
+            </p>
+            <div className="cta-row">
+              <a className="btn btn-primary" href="#projects">
+                View projects
+              </a>
+              <a className="btn btn-secondary" href="#contact">
+                Contact me
+              </a>
+            </div>
+            <div className="hero-profile-links">
+              <a
+                className="profile-link"
+                href={githubUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FiGithub aria-hidden="true" /> GitHub
+              </a>
+              <a
+                className="profile-link"
+                href={linkedInUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FiLinkedin aria-hidden="true" /> LinkedIn
+              </a>
+            </div>
           </div>
-        </aside>
+          <aside className="hero-card">
+            <h2>At a glance</h2>
+            <dl className="snapshot">
+              <div>
+                <dt>Based in</dt>
+                <dd>Sandusky, Ohio</dd>
+              </div>
+              <div>
+                <dt>Currently</dt>
+                <dd>Associate Software Engineer at Optum</dd>
+              </div>
+              <div>
+                <dt>Focus</dt>
+                <dd>
+                  Java, full-stack modernization, and technical leadership
+                </dd>
+              </div>
+            </dl>
+            <p>
+              Remote preferred; open to opportunities within roughly one hour of
+              Sandusky.
+            </p>
+          </aside>
         </header>
 
-      <main id="main">
-        <section className="panel" id="about">
-          <h2 className="section-title">
-            <FiCpu aria-hidden="true" />
-            <span>About</span>
-          </h2>
-          <p>
-            I am a senior hands-on Java and full-stack engineer with experience
-            modernizing enterprise healthcare systems, developing secure
-            customer-facing and internal applications, and reviewing peer code.
-            Earlier in my career, I built IT service divisions, managed technical
-            staff, and worked directly with company leadership—experience I am
-            now bringing toward technical leadership and engineering management.
-          </p>
-        </section>
+        <main id="main">
+          <section className="panel split-section" id="about">
+            <h2 className="section-title">About</h2>
+            <p>
+              I am a senior hands-on Java and full-stack engineer with
+              experience modernizing enterprise healthcare systems, developing
+              secure customer-facing and internal applications, and reviewing
+              peer code. Earlier in my career, I built IT service divisions,
+              managed technical staff, and worked directly with company
+              leadership—experience I am now bringing toward technical
+              leadership and engineering management.
+            </p>
+          </section>
 
-        <section className="panel" id="experience">
-          <h2 className="section-title">
-            <FiBriefcase aria-hidden="true" />
-            <span>Experience</span>
-          </h2>
-          {experience.map((role, index) => {
-            const roleKey = `${role.company}-${role.range}`
-            const isRecentRole = index === 0
-            const isOpen = activeExperienceKey === roleKey
-
-            return (
-              <details
-                className={`timeline-item ${isRecentRole ? 'recent-role' : 'older-role'}`}
-                key={roleKey}
-                open={isOpen}
+          <section className="panel" id="projects">
+            <div className="projects-heading">
+              <h2 className="section-title">Projects</h2>
+              <p>Enterprise platforms and things I build on my own.</p>
+            </div>
+            {projectGroups.map((group) => (
+              <div
+                className={`project-group ${group.title === 'Personal' ? 'personal-projects' : 'enterprise-projects'}`}
+                key={group.title}
               >
-              <summary
-                onClick={(event) => {
-                  event.preventDefault()
-                  setActiveExperienceKey(isOpen ? null : roleKey)
-                }}
-              >
-                <div className="summary-main">
-                  <span className="role-title">{role.title}</span>
-                  <span className="meta">
-                    {role.company} | {role.range}
-                  </span>
-                </div>
-                <span className="exp-indicator" aria-hidden="true">
-                  <span className="state-collapsed">Collapsed</span>
-                  <span className="state-open">Expanded</span>
-                  <FiChevronDown className="chevron" />
-                </span>
-              </summary>
-              <ul>
-                {role.bullets.map((bullet) => (
-                  <li key={bullet}>{bullet}</li>
-                ))}
-              </ul>
-            </details>
-            )
-          })}
-        </section>
-
-        <section className="panel" id="projects">
-          <h2 className="section-title">
-            <FiLayers aria-hidden="true" />
-            <span>Projects</span>
-          </h2>
-          {projectGroups.map((group) => (
-            <div className="project-group" key={group.title}>
-              <h3 className="project-group-title">{group.title}</h3>
-              <div className="project-grid">
-                {group.projects.map((project) => (
-                  <article className="project-card" key={project.name}>
-                    {project.image && (
-                      <img
-                        src={project.image}
-                        alt={`${project.name} preview`}
-                        className="project-image"
-                        loading="lazy"
-                      />
-                    )}
-                    <h4>{project.name}</h4>
-                    <p>{project.description}</p>
-                    <div className="project-card-footer">
-                      <ul className="project-stack">
-                        {project.stack
-                          .split(',')
-                          .map((item) => item.trim())
-                          .filter(Boolean)
-                          .sort((a, b) => a.localeCompare(b))
-                          .map((item) => (
-                            <li key={`${project.name}-${item}`}>{item}</li>
-                          ))}
-                      </ul>
-                      <div className="project-links">
-                        {project.link && project.linkText && (
-                          <a href={project.link} target="_blank" rel="noreferrer">
-                            <FiGithub aria-hidden="true" /> {project.linkText}
-                          </a>
-                        )}
-                        {project.secondaryLink && project.secondaryLinkText && (
-                          <a href={project.secondaryLink} target="_blank" rel="noreferrer">
-                            <FiGithub aria-hidden="true" /> {project.secondaryLinkText}
-                          </a>
-                        )}
-                      </div>
-                      {project.liveLink && project.liveLinkText && (
-                        <div className="project-live-row">
-                          <a
-                            href={project.liveLink}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="project-live-button"
-                          >
-                            <FiExternalLink aria-hidden="true" /> {project.liveLinkText}
-                          </a>
-                        </div>
+                <h3 className="project-group-title">{group.title}</h3>
+                <div className="project-grid">
+                  {group.projects.map((project) => (
+                    <article
+                      className={`project-card ${
+                        ['Firelands Current', 'Tagstash', 'The Hidden Lodge'].includes(project.name)
+                          ? 'featured-project'
+                          : ''
+                      }`}
+                      key={project.name}
+                    >
+                      {project.image && (
+                        <a
+                          className="project-preview"
+                          href={project.liveLink}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={`View ${project.name} website`}
+                        >
+                          <img
+                            src={project.image}
+                            alt={`${project.name} preview`}
+                            className="project-image"
+                            loading="lazy"
+                          />
+                        </a>
                       )}
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          ))}
-        </section>
-
-        <section className="panel" id="skills">
-          <h2 className="section-title">
-            <FiTool aria-hidden="true" />
-            <span>Skills</span>
-          </h2>
-          <div className="skills-columns">
-            {Object.entries(categorizedSkills).map(([category, categorySkills]) => {
-              const CategoryIcon = categoryIcons[category]
-
-              return (
-                <div className="skills-column" key={category}>
-                  <h3 className="skills-category-title">
-                    <CategoryIcon aria-hidden="true" />
-                    <span>{category}</span>
-                  </h3>
-                  <ul className="skill-list">
-                    {categorySkills.map((skill) => (
-                      <li key={skill}>{skill}</li>
-                    ))}
-                  </ul>
+                      <div className="project-copy">
+                        <h4>{project.name}</h4>
+                        <p>{project.description}</p>
+                        <div className="project-card-footer">
+                          <ul className="project-stack">
+                            {project.stack
+                              .split(',')
+                              .map((item) => item.trim())
+                              .filter(Boolean)
+                              .sort((a, b) => a.localeCompare(b))
+                              .map((item) => (
+                                <li key={`${project.name}-${item}`}>{item}</li>
+                              ))}
+                          </ul>
+                          <div className="project-links">
+                            {project.link && project.linkText && (
+                              <a
+                                href={project.link}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                <FiGithub aria-hidden="true" />{' '}
+                                {project.linkText}
+                              </a>
+                            )}
+                            {project.secondaryLink &&
+                              project.secondaryLinkText && (
+                                <a
+                                  href={project.secondaryLink}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  <FiGithub aria-hidden="true" />{' '}
+                                  {project.secondaryLinkText}
+                                </a>
+                              )}
+                          </div>
+                          {project.liveLink && project.liveLinkText && (
+                            <div className="project-live-row">
+                              <a
+                                href={project.liveLink}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="project-live-button"
+                              >
+                                <FiExternalLink aria-hidden="true" />{' '}
+                                {project.liveLinkText}
+                              </a>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </article>
+                  ))}
                 </div>
-              )
-            })}
-          </div>
-        </section>
-
-        <section className="panel" id="contact">
-          <h2 className="section-title">
-            <FiMail aria-hidden="true" />
-            <span>Contact</span>
-          </h2>
-          <p>Send me a message using the form below.</p>
-
-          <form onSubmit={handleFormSubmit} className="contact-form">
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleFormChange}
-                required
-                placeholder="Your name"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleFormChange}
-                required
-                placeholder="your@email.com"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="message">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleFormChange}
-                required
-                placeholder="Your message..."
-                rows={5}
-              />
-            </div>
-
-            <div className="form-honeypot" aria-hidden="true">
-              <label htmlFor="website">Website</label>
-              <input
-                type="text"
-                id="website"
-                name="website"
-                value={formData.website}
-                onChange={handleFormChange}
-                tabIndex={-1}
-                autoComplete="off"
-              />
-            </div>
-
-            <div ref={turnstileRef} className="cf-turnstile" />
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="submit-button"
-            >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
-            </button>
-
-            {formStatus && (
-              <div className={`form-status ${formStatus.type}`}>
-                {formStatus.message}
               </div>
-            )}
-          </form>
-        </section>
-      </main>
+            ))}
+          </section>
+
+          <section className="panel split-section" id="experience">
+            <div className="section-heading">
+              <h2 className="section-title">Experience</h2>
+              <p>From IT operations to enterprise software engineering.</p>
+            </div>
+            <div className="timeline">
+              {experience.map((role, index) => {
+                const roleKey = `${role.company}-${role.range}`
+                const isRecentRole = index === 0
+                const isOpen = activeExperienceKey === roleKey
+
+                return (
+                  <details
+                    className={`timeline-item ${isRecentRole ? 'recent-role' : 'older-role'}`}
+                    key={roleKey}
+                    open={isOpen}
+                  >
+                    <summary
+                      onClick={(event) => {
+                        event.preventDefault()
+                        setActiveExperienceKey(isOpen ? null : roleKey)
+                      }}
+                    >
+                      <div className="summary-main">
+                        <span className="role-title">{role.title}</span>
+                        <span className="meta">{role.company}</span>
+                      </div>
+                      <span className="role-range">{role.range}</span>
+                      <span className="exp-indicator" aria-hidden="true">
+                        <FiChevronDown className="chevron" />
+                      </span>
+                    </summary>
+                    <ul>
+                      {role.bullets.map((bullet) => (
+                        <li key={bullet}>{bullet}</li>
+                      ))}
+                    </ul>
+                  </details>
+                )
+              })}
+            </div>
+          </section>
+
+          <section className="panel split-section" id="skills">
+            <div className="section-heading">
+              <h2 className="section-title">Skills</h2>
+              <p>The tools and experience behind the work.</p>
+            </div>
+            <div className="skills-columns">
+              {Object.entries(categorizedSkills).map(
+                ([category, categorySkills]) => {
+                  const CategoryIcon = categoryIcons[category]
+
+                  return (
+                    <div className="skills-column" key={category}>
+                      <h3 className="skills-category-title">
+                        <CategoryIcon aria-hidden="true" />
+                        <span>{category}</span>
+                      </h3>
+                      <ul className="skill-list">
+                        {categorySkills.map((skill) => (
+                          <li key={skill}>{skill}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )
+                }
+              )}
+            </div>
+          </section>
+
+          <section className="panel split-section" id="contact">
+            <div className="section-heading contact-copy">
+              <h2 className="section-title">Contact</h2>
+              <p>Have a role or project in mind? Send me a message.</p>
+              <a
+                href={linkedInUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="profile-link"
+              >
+                <FiLinkedin aria-hidden="true" /> Connect on LinkedIn
+              </a>
+            </div>
+
+            <form onSubmit={handleFormSubmit} className="contact-form">
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  autoComplete="name"
+                  value={formData.name}
+                  onChange={handleFormChange}
+                  required
+                  placeholder="Your name"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  autoComplete="email"
+                  value={formData.email}
+                  onChange={handleFormChange}
+                  required
+                  placeholder="your@email.com"
+                />
+              </div>
+
+              <div className="form-group message-group">
+                <label htmlFor="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleFormChange}
+                  required
+                  placeholder="Your message..."
+                  rows={5}
+                />
+              </div>
+
+              <div className="form-honeypot" aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input
+                  type="text"
+                  id="website"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleFormChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
+              <div ref={turnstileRef} className="cf-turnstile" />
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="submit-button"
+              >
+                {isSubmitting ? 'Sending...' : 'Send message'}
+              </button>
+
+              {formStatus && (
+                <div className={`form-status ${formStatus.type}`} role="status">
+                  {formStatus.message}
+                </div>
+              )}
+            </form>
+          </section>
+        </main>
 
         <footer className="footer">
           <p>Justin Musick</p>
           <p className="footer-version">v{version}</p>
           <div className="footer-links">
-            <a href="https://github.com/jmusick/jm" target="_blank" rel="noreferrer">
+            <a
+              href="https://github.com/jmusick/jm"
+              target="_blank"
+              rel="noreferrer"
+            >
               <FiGithub aria-hidden="true" /> GitHub
             </a>
             <a href="/sitemap.xml" target="_blank" rel="noreferrer">
