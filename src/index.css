@@ -6,18 +6,21 @@
   --ink: #203447;
   --muted: #536779;
   --line: #cdd8e1;
+  --control-line: #738698;
   --brand: #245fcc;
   --brand-soft: #e7eefb;
   --hero: #18354b;
   --hero-ink: #f4f8fc;
   --hero-muted: #c1d3e1;
-  --hero-line: #486175;
+  --hero-line: #7b96aa;
   --success: #21623d;
   --success-soft: #edf7f0;
   --error: #9b2836;
   --error-soft: #fdf0f1;
   --body-font: 'Source Sans 3', sans-serif;
   --heading-font: 'Sora', sans-serif;
+  color-scheme: light;
+  scrollbar-color: var(--muted) var(--bg);
   font-family: var(--body-font);
   line-height: 1.6;
   font-weight: 400;
@@ -42,6 +45,17 @@ html {
 }
 body {
   margin: 0;
+  font-size: 1rem;
+  overflow-wrap: break-word;
+}
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
 }
 a {
   color: inherit;
@@ -51,6 +65,7 @@ button,
 input,
 textarea {
   font: inherit;
+  caret-color: var(--brand);
 }
 button,
 a,

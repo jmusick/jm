@@ -13,6 +13,8 @@
 }
 
 .wordmark {
+  min-width: 44px;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   text-decoration: none;
@@ -37,18 +39,19 @@
   gap: clamp(1rem, 2.5vw, 2.25rem);
 }
 .nav-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  min-width: 44px;
   text-decoration: none;
   font-weight: 600;
-}
-.nav-links a:hover {
-  color: var(--brand);
 }
 
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
   gap: clamp(2rem, 6vw, 6rem);
-  padding: clamp(2.5rem, 6vw, 5.5rem) clamp(1.25rem, 5vw, 5rem);
+  padding: clamp(2rem, 5vw, 4.5rem) clamp(1.25rem, 5vw, 5rem);
   background: var(--hero);
   color: var(--hero-ink);
 }
@@ -59,7 +62,7 @@
   font-size: clamp(2.65rem, 5.5vw, 5rem);
   font-weight: 600;
   line-height: 1.08;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.045em;
 }
 
 .hero h1 {
@@ -77,6 +80,9 @@
   max-width: 54ch;
   color: var(--hero-muted);
   font-size: 1.15rem;
+}
+.role-phrase {
+  white-space: nowrap;
 }
 .cta-row {
   display: flex;
@@ -101,13 +107,7 @@
   border-color: var(--hero-ink);
   color: var(--hero);
 }
-.btn-primary:hover {
-  background: var(--hero-muted);
-  border-color: var(--hero-muted);
-}
-.btn-secondary:hover {
-  background: var(--hero-line);
-}
+
 .hero a:focus-visible {
   outline-color: var(--hero-ink);
 }
@@ -115,9 +115,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 .profile-link {
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -126,9 +127,6 @@
 }
 .hero .profile-link {
   color: var(--hero-muted);
-}
-.profile-link:hover {
-  text-decoration: underline;
 }
 
 .hero-card {
@@ -149,7 +147,7 @@
 }
 .snapshot dt {
   color: var(--hero-muted);
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 .snapshot dd {
   margin: 0.15rem 0 0;
@@ -161,7 +159,7 @@
   padding-top: 1.25rem;
   margin: 1.5rem 0 0;
   color: var(--hero-muted);
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 main {
@@ -232,9 +230,34 @@ main {
   flex-direction: column;
 }
 .enterprise-projects .project-card {
-  background: var(--bg);
-  border-radius: 8px;
-  padding: 1.5rem;
+  padding: 1.5rem 0;
+}
+.enterprise-projects .project-grid {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+.enterprise-projects .project-card + .project-card {
+  border-top: 1px solid var(--line);
+}
+.enterprise-projects .project-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 0.75rem 3rem;
+}
+.enterprise-projects h4 {
+  grid-row: 1 / 3;
+  max-width: 24ch;
+}
+.enterprise-projects .project-copy p {
+  margin: 0;
+  max-width: 65ch;
+}
+.enterprise-projects .project-card-footer {
+  grid-column: 2;
+  margin: 0;
+}
+.enterprise-projects .project-stack {
+  margin: 0;
 }
 .project-preview {
   display: block;
@@ -246,13 +269,12 @@ main {
 .project-image {
   display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 10;
   object-fit: cover;
   object-position: top;
 }
-.project-preview:hover {
-  border-color: var(--brand);
-}
+
 .project-copy {
   display: flex;
   flex-direction: column;
@@ -271,7 +293,7 @@ main {
 }
 .project-card p {
   margin: 0.8rem 0 1rem;
-  color: var(--muted);
+  color: var(--ink);
   line-height: 1.55;
 }
 .project-card-footer {
@@ -286,7 +308,7 @@ main {
   gap: 0.35rem 0.75rem;
 }
 .project-stack li {
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--muted);
 }
 .project-links {
@@ -301,16 +323,16 @@ main {
   gap: 0.4rem;
   color: var(--brand);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
   text-decoration: none;
-  min-height: 32px;
+  min-height: 44px;
 }
-.project-links a:hover,
-.project-live-button:hover {
-  text-decoration: underline;
-}
-.project-live-row {
-  margin-top: 0.45rem;
+
+.project-live-button {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--brand);
+  border-radius: 5px;
+  background: var(--brand-soft);
 }
 .featured-project {
   grid-column: 1 / -1;
@@ -325,6 +347,7 @@ main {
 }
 .featured-project .project-copy {
   padding-top: 0.25rem;
+  align-self: center;
 }
 .featured-project h4 {
   font-size: 1.65rem;
@@ -334,6 +357,11 @@ main {
 }
 .featured-project .project-card-footer {
   margin-top: 0.25rem;
+}
+
+.featured-project:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
 }
 
 .timeline-item {
@@ -367,7 +395,10 @@ main {
 .meta,
 .role-range {
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 1rem;
+}
+.role-range {
+  font-variant-numeric: tabular-nums;
 }
 .exp-indicator {
   display: flex;
@@ -381,9 +412,7 @@ main {
 .timeline-item[open] .chevron {
   transform: rotate(180deg);
 }
-.timeline-item summary:hover .role-title {
-  color: var(--brand);
-}
+
 .timeline-item ul {
   margin: 0 0 1.5rem;
   padding-left: 1.2rem;
@@ -392,7 +421,7 @@ main {
 .timeline-item li {
   padding-left: 0.4rem;
   margin-top: 0.65rem;
-  color: var(--muted);
+  color: var(--ink);
 }
 .timeline-item li::marker {
   color: var(--brand);
@@ -418,22 +447,20 @@ main {
   margin: 0;
   padding: 0;
   list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  columns: 2;
+  column-gap: 1.5rem;
 }
 .skill-list li {
-  padding: 0.3rem 0.7rem;
-  background: var(--bg);
-  border-radius: 4px;
-  color: var(--muted);
-  font-size: 0.95rem;
+  padding-block: 0.2rem;
+  break-inside: avoid;
+  color: var(--ink);
+  font-size: 1rem;
 }
 
 .contact-copy .profile-link {
   margin-top: 1.5rem;
   color: var(--brand);
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 .contact-form {
   display: grid;
@@ -453,7 +480,7 @@ main {
   width: 100%;
   min-width: 0;
   padding: 0.8rem 1rem;
-  border: 1px solid var(--line);
+  border: 1px solid var(--control-line);
   border-radius: 5px;
   background: var(--paper);
   color: var(--ink);
@@ -498,10 +525,7 @@ main {
   font-weight: 600;
   cursor: pointer;
 }
-.submit-button:hover:not(:disabled) {
-  background: var(--hero);
-  border-color: var(--hero);
-}
+
 .submit-button:disabled {
   opacity: 0.7;
   cursor: not-allowed;
@@ -527,7 +551,7 @@ main {
   display: flex;
   align-items: center;
   gap: 1rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 .footer p {
   margin: 0;
@@ -544,15 +568,58 @@ main {
   gap: 1.25rem;
 }
 .footer-links a {
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   text-decoration: none;
   color: var(--muted);
 }
-.footer-links a:hover {
-  color: var(--brand);
-  text-decoration: underline;
+
+@media (hover: hover) {
+  .nav-links a:hover {
+    color: var(--brand);
+  }
+  .btn-primary:hover {
+    background: var(--hero-muted);
+    border-color: var(--hero-muted);
+  }
+  .btn-secondary:hover {
+    background: var(--hero-line);
+    color: var(--hero);
+  }
+  .profile-link:hover {
+    text-decoration: underline;
+  }
+  .project-preview:hover {
+    border-color: var(--brand);
+  }
+  .project-links a:hover,
+  .project-live-button:hover {
+    text-decoration: underline;
+  }
+  .timeline-item summary:hover .role-title {
+    color: var(--brand);
+  }
+  .submit-button:hover:not(:disabled) {
+    background: var(--hero);
+    border-color: var(--hero);
+  }
+  .footer-links a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .project-live-button:hover {
+    background: var(--brand);
+    color: var(--paper);
+  }
+}
+a:active,
+summary:active {
+  opacity: 0.8;
+}
+.submit-button:active:not(:disabled) {
+  background: var(--hero);
 }
 .skip-link {
   position: absolute;
@@ -617,17 +684,35 @@ main {
     width: 100%;
     justify-content: space-between;
     gap: 0.5rem;
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
   .nav-links a {
     padding-block: 0.35rem;
   }
   .hero {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 1.5rem;
   }
   .hero-name {
     font-size: clamp(2.5rem, 9vw, 3.75rem);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-size: 1.35rem;
+  }
+  .lede {
+    font-size: 1.05rem;
+  }
+  .cta-row {
+    margin-top: 1.5rem;
+  }
+  .hero-card h2 {
+    margin-bottom: 1rem;
+  }
+  .hero-card p {
+    margin-top: 1rem;
+    padding-top: 0;
+    border-top: 0;
   }
   .hero-card {
     border-left: 0;
@@ -637,8 +722,16 @@ main {
   }
   .snapshot {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .snapshot div {
+    display: grid;
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+  .snapshot dd {
+    margin: 0;
   }
   .snapshot div + div {
     margin-top: 0;
@@ -671,6 +764,17 @@ main {
   }
   .project-grid {
     gap: 2rem 1.25rem;
+  }
+  .enterprise-projects .project-copy {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .enterprise-projects h4 {
+    grid-row: auto;
+    max-width: none;
+  }
+  .enterprise-projects .project-card-footer {
+    grid-column: auto;
   }
   .footer {
     flex-wrap: wrap;

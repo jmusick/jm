@@ -16,7 +16,7 @@ npm run preview    # serve the production build locally
 npm run lint       # ESLint (flat config in eslint.config.js)
 ```
 
-Requires Node 20.19+ or 22.12+ (Vite 8).
+Requires Node 20.19+ (20.x), 22.13+ (22.x), or 24+ to satisfy Vite 8 and ESLint 10.
 
 `npm run dev` does not serve the contact form's `/api/contact` endpoint. To exercise it locally, copy `.dev.vars.example` to `.dev.vars` (git-ignored), then run `npm run build && npx wrangler pages dev dist`. On `localhost`/`127.0.0.1` the page uses Cloudflare's always-pass Turnstile test site key, which pairs with the test secret in the example. A real `CF_EMAIL_API_TOKEN` in `.dev.vars` sends real email.
 
@@ -42,12 +42,21 @@ wrangler.toml             # Cloudflare Pages config: project name, compatibility
 
 `src/assets/` holds leftover template files (`hero.png`, `react.svg`, `vite.svg`) that nothing imports.
 
+## Local assets and documentation
+
+- `C:\Users\JD\source\jm` owns website code, deployed assets, `README.md`, `AGENTS.md`, and public audit summaries in `docs/audits/`.
+- `C:\Users\JD\projects\jm` owns local originals and supporting materials: `01-assets/`, `02-working/`, `03-resources/`, `04-exports/`, and `99-archive/`. Its `README.md` describes placement and publication workflow.
+- Use lowercase kebab-case for project-material folders and new curated asset filenames. Keep dates as `YYYY-MM-DD`; preserve recovered attachment names and historical provenance source paths.
+- Copy only approved deployment assets into `public/`. Keep recovered exports, private correspondence, draft resumes, and raw audit evidence out of the public repository.
+- Store raw audit evidence under the asset workspace's `03-resources/audits/YYYY-MM-DD/`. Public reports should link GitHub issues and separate observed findings from unverified dashboard controls.
+- Track audit work in GitHub issues with category and priority labels. `TODO.md` remains a local, git-ignored checklist.
+
 ## Editing content
 
-All content lives in data arrays at the top of `App()` in `src/App.jsx`:
+Portfolio data lives in arrays near the top of `App()` in `src/App.jsx`. The introduction, About text, section descriptions, and contact copy are in the component markup.
 
 - `skills`: the base skills list.
-- `projectGroups`: project groups (`UnitedHealthcare`, `Personal`). Each project takes `name`, `description` and `stack` (a comma-separated string), plus optional `liveLink`/`liveLinkText`, `link`/`linkText`, `secondaryLink`/`secondaryLinkText`, `image`, and `showGithub: false` for work projects that have no public repo.
+- `projectGroups`: project groups (`UnitedHealthcare`, `Personal`). Each project takes `name`, `description` and `stack` (a comma-separated string), plus optional `liveLink`/`liveLinkText`, `link`/`linkText`, `secondaryLink`/`secondaryLinkText`, and `image`/`imageWidth`/`imageHeight`. Repository links require both URL and text; work projects omit those fields. `showGithub` is legacy data and does not control rendering.
 - `experience`: roles, each with `title`, `company`, `range` and `bullets`.
 
 The skills section is derived from these arrays, so keep it consistent when you edit them:
@@ -57,7 +66,9 @@ The skills section is derived from these arrays, so keep it consistent when you 
 - `globalSkillExclusions` hides stack items that should not appear as skills.
 - The `frontEndSkills`, `backEndSkills`, `softwareSkills` and `businessSkills` sets choose each skill's category. A skill that is in none of them falls into "Platforms & Tools", so add new skills to the right set.
 
-To add a project, add a screenshot to `public/projects/`, add an entry to the right group in `projectGroups`, and check where any new stack items land in the skills categories.
+To add a project, add an approved screenshot to `public/projects/`, set its path and original pixel dimensions in `image`, `imageWidth`, and `imageHeight`, add the entry to the right group, and check where new stack items land in the skills categories. Screenshot links use `liveLink`. CSS crops previews to 16:10 from the top.
+
+Projects render in array order. The project markup selects Firelands Current, Tagstash, and The Hidden Lodge by name for the larger featured layout; update that selection if a featured project is renamed.
 
 If you change the headline, title or role, update `index.html` to match: `<title>`, meta description, OG and Twitter tags, and the JSON-LD block.
 
@@ -66,8 +77,9 @@ If you change the headline, title or role, update `index.html` to match: `<title
 - Plain JavaScript and JSX, not TypeScript. Match the existing style: 2-space indent, single quotes, no semicolons.
 - Icons come from `react-icons/fi` (the Feather set) only.
 - Theme colors are CSS variables in `src/index.css`. Reuse them instead of hard-coding colors.
+- Keep the `theme-color` meta tag in `index.html` in sync with `--bg`. Headings use Sora; body text uses Source Sans 3.
 - The contact form posts to `/api/contact`, a Pages Function that verifies Cloudflare Turnstile server-side and sends through the Cloudflare Email Sending REST API. The Turnstile site key in `App.jsx` is public; on localhost it switches to Cloudflare's always-pass test key.
-- Plaintext Function config (`CF_ACCOUNT_ID`, `EMAIL_FROM_CONTACT`, `TURNSTILE_HOSTNAMES`) goes in `wrangler.toml` `[vars]`, which Pages treats as the source of truth. Secrets (`CF_EMAIL_API_TOKEN`, `TURNSTILE_SECRET_KEY`, `CONTACT_TO_EMAIL`) live only in the Pages dashboard or a local `.dev.vars`. Never commit them. The Function returns 503 if any of the six is missing.
+- Plaintext Function config (`CF_ACCOUNT_ID`, `EMAIL_FROM_CONTACT`, `TURNSTILE_HOSTNAMES`) goes in `wrangler.toml` `[vars]`, which Pages treats as the source of truth. Secrets (`CF_EMAIL_API_TOKEN`, `TURNSTILE_SECRET_KEY`, `CONTACT_TO_EMAIL`) live only in the Pages dashboard or a local `.dev.vars`. Never commit them. After input validation, non-honeypot submissions return 503 if any of the six is missing.
 - `name` in `wrangler.toml` must stay `jm`, matching the Pages project. If the site gets a new domain, add it to `TURNSTILE_HOSTNAMES` and to the Turnstile widget's hostnames in the Cloudflare dashboard.
 - Functions code in `functions/` follows the same JS style and is linted with the rest of the repo.
 - Do not publish a personal email address anywhere (page, `index.html` meta or JSON-LD, or committed config; the repo is public). All contact goes through the form.
@@ -75,9 +87,10 @@ If you change the headline, title or role, update `index.html` to match: `<title
 
 ## Security headers
 
-`public/_headers` sets an enforced `Content-Security-Policy`, HSTS and the usual hardening headers for every path. The CSP allows only:
+`public/_headers` sets an enforced `Content-Security-Policy`, HSTS and the usual hardening headers for static responses. Cloudflare does not apply this file to Pages Function responses; add applicable API response headers in the Function or middleware. The static CSP allows only:
 
 - `'self'` for scripts, styles, images, `fetch` (`/api/contact`) and form posts.
+- `data:` is also allowed in `img-src`.
 - `https://challenges.cloudflare.com` in `script-src` and `frame-src`, for the Turnstile widget.
 - `https://fonts.googleapis.com` in `style-src` and `https://fonts.gstatic.com` in `font-src`, for the Google Fonts import in `src/index.css`.
 
@@ -95,6 +108,7 @@ Keep these in place when editing markup or styles:
 
 - The first rendered element is a `.skip-link` to `<main id="main">`. Keep the `id` if you restructure `<main>`.
 - Form fields show a visible `:focus-visible` outline, not just a border color change. Do not remove outlines without a replacement that does not rely on color alone.
+- Keep link targets at least 44px in both dimensions and supporting text at least 16px. Form borders use `--control-line`; `--line` is for decorative dividers. Put hover feedback inside `@media (hover: hover)`.
 - A global `@media (prefers-reduced-motion: reduce)` block in `src/App.css` cuts animations, transitions and smooth scrolling. New animations are covered automatically.
 - There is exactly one `<h1>`, and heading levels do not skip. Decorative icons get `aria-hidden="true"`, and every form field has a real `<label>`.
 - `TODO.md` is a local, git-ignored working checklist. Do not commit it.

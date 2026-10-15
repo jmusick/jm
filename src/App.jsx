@@ -82,7 +82,7 @@ function App() {
         {
           name: 'WebExchange Client Portal',
           description:
-            'Modernized and enhanced a secure healthcare portal serving thousands of users, with claims, deductible tracking, documentation requests, and dispute workflows.',
+            'Modernized and improved a secure healthcare portal used by thousands of people to manage claims, track deductibles, request documents, and handle disputes.',
           stack:
             'Java, Struts, Spring, JavaScript, CSS, Bootstrap, jQuery, Jinja, REST',
           showGithub: false,
@@ -90,7 +90,7 @@ function App() {
         {
           name: 'IWS Internal Workflow System',
           description:
-            'Delivered backend and UI modernization for a platform used across dozens of departments, supporting document indexing, OCR, configurable workflows, and role-based security.',
+            'Modernized the backend and interface of an internal platform used by dozens of departments. The system handles document indexing, OCR, configurable workflows, and role-based security.',
           stack:
             'Java, Struts, Spring, JavaScript, CSS, Bootstrap, jQuery, Jinja, REST',
           showGithub: false,
@@ -98,7 +98,7 @@ function App() {
         {
           name: 'UMR Portals',
           description:
-            'Develop and support 20+ configurable Optum Adaptive Platform portals serving millions of users across UMR, NYC, GEHA, and other clients and lines of business.',
+            'Develop and support 20+ configurable portals on the Optum Adaptive Platform. They serve millions of users across UMR, NYC, GEHA, and other clients and lines of business.',
           stack: 'Java, Spring, JavaScript, CSS, Bootstrap, jQuery, JSP, REST',
           showGithub: false,
         },
@@ -110,7 +110,7 @@ function App() {
         {
           name: 'Firelands Current',
           description:
-            'Built an independent local-news platform for Sandusky and the Firelands, with article publishing, an events calendar, threaded community discussions, reader accounts, a media library, and advertising management.',
+            'Built an independent local-news site for Sandusky and the Firelands. It includes article publishing, an events calendar, threaded community discussions, reader accounts, a media library, and advertising management.',
           stack:
             'Astro, TypeScript, Cloudflare Workers, D1, R2, Better Auth, Cloudflare Turnstile, Cloudflare Email Sending',
           liveLink: 'https://firelandscurrent.com/',
@@ -118,11 +118,13 @@ function App() {
           link: 'https://github.com/jmusick/firelands-current',
           linkText: 'Site repo',
           image: '/projects/firelands-current.png',
+          imageWidth: 1425,
+          imageHeight: 891,
         },
         {
           name: 'Tagstash',
           description:
-            'Designed and built an end-to-end, multi-user bookmarking application with active users, including the database architecture, React interface, browser extension, email verification, REST APIs, and Stripe subscription system.',
+            'Designed and built a multi-user bookmarking app with active users, from the database architecture and React interface to the browser extension, email verification, REST APIs, and Stripe subscriptions.',
           stack: 'React, Cloudflare Pages & Workers, D1, Stripe, Resend, REST',
           liveLink: 'https://tagsta.sh/',
           liveLinkText: 'View website',
@@ -131,56 +133,13 @@ function App() {
           secondaryLink: 'https://github.com/jmusick/TagstashExtension',
           secondaryLinkText: 'Extension repo',
           image: '/projects/tagstash.png',
-        },
-        {
-          name: 'Simon Rook',
-          description:
-            'Author site for Simon Rook, presenting the book The Stoic Mind for Overthinkers with a typed book catalogue, detail pages, and retailer links. Palette and typography derive from the cover art.',
-          stack: 'Astro, TypeScript, HTML, CSS, Cloudflare Pages',
-          liveLink: 'https://simonrook.com/',
-          liveLinkText: 'View website',
-          link: 'https://github.com/jmusick/SimonRook',
-          linkText: 'Site repo',
-          image: '/projects/simonrook.png',
-        },
-        {
-          name: 'Dorian Black',
-          description:
-            'Official artist site for synth-pop project Dorian Black, featuring the album After Tonight with an embedded Spotify player, full tracklist, artist bio, and streaming links.',
-          stack: 'Astro, JavaScript, HTML, CSS, Spotify Embeds',
-          liveLink: 'https://dorianblack.com/',
-          liveLinkText: 'View website',
-          link: 'https://github.com/jmusick/DorianBlack',
-          linkText: 'Site repo',
-          image: '/projects/dorianblack.png',
-        },
-        {
-          name: 'JD Musick',
-          description:
-            'Official artist site for electric blues and soul musician JD Musick, featuring the debut album The Road Still Knows, a tracklist, streaming links, artist information, and a protected contact form.',
-          stack:
-            'Astro, TypeScript, HTML, CSS, Cloudflare Pages, Cloudflare Turnstile, Cloudflare Email Sending',
-          liveLink: 'https://jdmusick.band/',
-          liveLinkText: 'View website',
-          link: 'https://github.com/jmusick/JDMusick',
-          linkText: 'Site repo',
-          image: '/projects/jdmusick.png',
-        },
-        {
-          name: 'Pneumaris Band',
-          description:
-            'Official web presence for Pneumaris, an atmospheric music project featuring releases, band information, and social/listening links.',
-          stack: 'Astro, JavaScript, HTML, CSS, Web3Forms',
-          liveLink: 'https://pneumarisband.com/',
-          liveLinkText: 'View website',
-          link: 'https://github.com/jmusick/pneumaris',
-          linkText: 'Site repo',
-          image: '/projects/pneumaris.png',
+          imageWidth: 1440,
+          imageHeight: 2391,
         },
         {
           name: 'The Hidden Lodge',
           description:
-            'Built a full-stack guild operations platform with Blizzard authentication and APIs, D1-backed administration and analytics, scheduled data refreshes, a Python desktop bridge, and a Lua WoW addon that exchanges preparedness, attendance, Great Vault, upgrade, and loot-history data through authenticated REST endpoints.',
+            'Built a full-stack guild operations platform using Blizzard authentication and APIs, with D1-backed administration and analytics, scheduled data refreshes, a Python desktop bridge, and a Lua WoW addon. The addon exchanges preparedness, attendance, Great Vault, upgrade, and loot-history data through authenticated REST endpoints.',
           stack:
             'Astro, TypeScript, Cloudflare Pages & Workers, D1, Blizzard OAuth & API, REST, Python, Lua, GitHub Actions',
           liveLink: 'https://hidden-lodge.com/',
@@ -188,6 +147,61 @@ function App() {
           link: 'https://github.com/jmusick/HiddenLodgeWebsite',
           linkText: 'Site repo',
           image: '/projects/hiddenlodge.png',
+          imageWidth: 1440,
+          imageHeight: 2391,
+        },
+        {
+          name: 'Simon Rook',
+          description:
+            'Author site for Simon Rook and The Stoic Mind for Overthinkers, with a typed book catalogue, book detail pages, and retailer links. The colors and typography come from the cover art.',
+          stack: 'Astro, TypeScript, HTML, CSS, Cloudflare Pages',
+          liveLink: 'https://simonrook.com/',
+          liveLinkText: 'View website',
+          link: 'https://github.com/jmusick/SimonRook',
+          linkText: 'Site repo',
+          image: '/projects/simonrook.png',
+          imageWidth: 1440,
+          imageHeight: 2860,
+        },
+        {
+          name: 'Dorian Black',
+          description:
+            'Official site for synth-pop project Dorian Black and the album After Tonight, with an embedded Spotify player, the full tracklist, an artist bio, and streaming links.',
+          stack: 'Astro, JavaScript, HTML, CSS, Spotify Embeds',
+          liveLink: 'https://dorianblack.com/',
+          liveLinkText: 'View website',
+          link: 'https://github.com/jmusick/DorianBlack',
+          linkText: 'Site repo',
+          image: '/projects/dorianblack.png',
+          imageWidth: 1440,
+          imageHeight: 1800,
+        },
+        {
+          name: 'JD Musick',
+          description:
+            'Official site for electric blues and soul musician JD Musick and the debut album The Road Still Knows. Includes a tracklist, streaming links, artist information, and a protected contact form.',
+          stack:
+            'Astro, TypeScript, HTML, CSS, Cloudflare Pages, Cloudflare Turnstile, Cloudflare Email Sending',
+          liveLink: 'https://jdmusick.band/',
+          liveLinkText: 'View website',
+          link: 'https://github.com/jmusick/JDMusick',
+          linkText: 'Site repo',
+          image: '/projects/jdmusick.png',
+          imageWidth: 1440,
+          imageHeight: 1800,
+        },
+        {
+          name: 'Pneumaris Band',
+          description:
+            'Official site for Pneumaris, an atmospheric music project, with releases, band information, and links to social profiles and listening platforms.',
+          stack: 'Astro, JavaScript, HTML, CSS, Web3Forms',
+          liveLink: 'https://pneumarisband.com/',
+          liveLinkText: 'View website',
+          link: 'https://github.com/jmusick/pneumaris',
+          linkText: 'Site repo',
+          image: '/projects/pneumaris.png',
+          imageWidth: 1440,
+          imageHeight: 2391,
         },
       ],
     },
@@ -201,10 +215,10 @@ function App() {
       bullets: [
         'Develop and maintain full-stack healthcare applications serving thousands of users with Java, Spring, Struts, JSP/Jinja, JavaScript, Bootstrap, jQuery, CSS, and REST services.',
         'Modernize WebExchange and IWS across backend and UI layers, including workflow configuration, document indexing, OCR processing, and configurable security rules used by dozens of departments.',
-        'Develop and support 20+ configurable Optum Adaptive Platform portals serving millions of users across UMR, NYC, GEHA, and other clients and lines of business.',
+        'Develop and support 20+ configurable portals on the Optum Adaptive Platform. They serve millions of users across UMR, NYC, GEHA, and other clients and lines of business.',
         'Refactored and forked WebExchange to support a new Network Provider Services unit under HealthSmart with new business rules and compliance requirements.',
         'Implement role-based access controls and security validations for HIPAA-regulated systems and enterprise data-protection requirements.',
-        'Perform peer code reviews and collaborate with QA, business analysts, developers, and stakeholders to deliver production-ready solutions.',
+        'Review peer code and work with QA, business analysts, developers, and stakeholders to get software ready for production.',
       ],
     },
     {
@@ -213,9 +227,9 @@ function App() {
       range: 'May 2019 - May 2024',
       bullets: [
         'Continued development and support of proprietary TPA platforms WebExchange and IWS following acquisition of HealthSmart.',
-        'Expanded Java and backend development contributions through feature enhancements, bug resolution, and maintainability improvements.',
+        'Took on more Java and backend development, adding features, fixing bugs, and making the code easier to maintain.',
         'Upgraded legacy interfaces to modern UI frameworks and improved front-end and back-end maintainability, usability, and reliability.',
-        'Collaborated with cross-functional teams to align platform capabilities with evolving business and regulatory requirements.',
+        'Worked across teams to adapt the platforms to changing business and regulatory requirements.',
         'Contributed to enterprise healthcare administration systems supporting large client populations.',
       ],
     },
@@ -225,9 +239,9 @@ function App() {
       range: 'July 2014 - May 2019',
       bullets: [
         'Transitioned into application development after acquisition of Commerce Benefits Group, supporting WebExchange and IWS platforms.',
-        'Expanded technical skillset to include Java, contributing to bug fixes, feature enhancements, and ongoing platform support.',
-        'Applied front-end expertise in HTML, CSS, and JavaScript to improve usability and interface consistency across enterprise systems.',
-        'Collaborated with cross-functional teams to deliver enhancements aligned with business and client requirements.',
+        'Learned Java and used it to fix bugs, add features, and support the platforms.',
+        'Used HTML, CSS, and JavaScript to make enterprise interfaces easier to use and more consistent.',
+        'Worked across teams to build improvements that met business and client requirements.',
         'Partnered with marketing to launch a redesigned HealthSmart.com on an updated Kentico CMS platform.',
         'Launched and maintained additional commercial websites supporting multiple HealthSmart divisions and product lines.',
       ],
@@ -241,8 +255,8 @@ function App() {
         'Modernized site design with a full visual overhaul using Joomla CMS, PHP, JavaScript, CSS, and custom templating.',
         'Launched and managed approximately a dozen commercial websites, portals, and internal systems supporting multiple business divisions.',
         'Owned SEO strategy, social media, analytics, and digital advertising initiatives to drive traffic and revenue growth.',
-        'Executed email marketing campaigns and tracked performance metrics for acquisition and retention.',
-        'Generated business intelligence reporting for ownership to support strategic decision-making.',
+        'Ran email marketing campaigns and tracked how they performed at attracting and retaining customers.',
+        'Prepared business intelligence reports to help the owners make strategic decisions.',
         'Supported integration points between public-facing sites and internal TPA systems (WebExchange and IWS).',
       ],
     },
@@ -253,11 +267,11 @@ function App() {
       bullets: [
         'Managed and centralized IT operations for a growing disaster restoration company, replacing outsourced vendor support.',
         'Maintained PC hardware, servers, and network infrastructure to ensure reliable internal operations.',
-        'Oversaw migration to cloud-based solutions to improve accessibility, scalability, and disaster recovery.',
-        'Led migration to a new customer service and CRM platform to streamline workflows and client management.',
+        'Oversaw a move to cloud services to improve access, support growth, and strengthen disaster recovery.',
+        'Led the move to a new customer service and CRM platform, simplifying workflows and client management.',
         'Developed and maintained multiple commercial websites across company divisions.',
         'Managed social media and marketing initiatives including print materials, email campaigns, and analytics.',
-        'Improved operational efficiency and strengthened digital presence through integrated IT and marketing execution.',
+        'Made operations more efficient and improved the company’s online presence by coordinating IT and marketing work.',
       ],
     },
     {
@@ -267,9 +281,9 @@ function App() {
       bullets: [
         'Launched and expanded a new IT services division for a traditional office equipment provider.',
         'Designed offerings for PC repair, network design, website development and hosting, email solutions, and custom web applications.',
-        'Built the IT-services client base from zero to dozens of customers, helping transition the company from equipment sales to technology solutions.',
-        'Managed projects end-to-end with strong delivery quality and client satisfaction outcomes.',
-        'Applied prior ISP and business IT experience to guide service strategy and technical direction.',
+        'Built the IT services client base from zero to dozens of customers, helping the company expand from equipment sales into IT services.',
+        'Managed projects from start to finish, delivering quality work that clients were satisfied with.',
+        'Used my ISP and business IT experience to plan services and guide technical decisions.',
       ],
     },
     {
@@ -278,10 +292,10 @@ function App() {
       range: 'October 2004 - September 2007',
       bullets: [
         'Managed and mentored three Internet Support Technicians, providing escalation support and technical guidance while working directly with the company president.',
-        'Oversaw daily support operations to ensure timely resolution of connectivity and service issues.',
+        'Oversaw daily support operations so connectivity and service issues were resolved promptly.',
         'Partnered with ownership to develop and launch HMC Tech, expanding into managed IT services for local businesses.',
         'Supported transition from primarily dial-up internet services to broadband offerings.',
-        'Contributed to service expansion, infrastructure improvements, and long-term growth strategy.',
+        'Helped expand services, improve infrastructure, and plan for long-term growth.',
       ],
     },
     {
@@ -306,8 +320,8 @@ function App() {
         'Diagnosed and resolved TCP/IP, modem, browser, and client-side email issues for residential and small business customers.',
         'Managed ISP account administration including user provisioning, password resets, and service configuration.',
         'Set up and maintained website hosting accounts and domain-related services.',
-        'Assisted with ISP infrastructure maintenance and general service reliability initiatives.',
-        'Built foundational web development skills and delivered small website projects for local clients.',
+        'Helped maintain ISP infrastructure and improve service reliability.',
+        'Learned web development and built small websites for local clients.',
         'Provided clear, non-technical customer guidance that improved resolution speed and satisfaction.',
       ],
     },
@@ -545,10 +559,10 @@ function App() {
         <header className="hero">
           <div className="hero-copy">
             <p className="hero-name">Justin Musick</p>
-            <h1>Senior Java & Full-Stack Software Engineer</h1>
+            <h1>Senior Java & <span className="role-phrase">Full-Stack</span> Software Engineer</h1>
             <p className="lede">
-              Hands-on engineer modernizing enterprise healthcare platforms used
-              by thousands of users and supporting 20+ configurable portals that
+              I modernize enterprise healthcare platforms used by thousands of
+              people. I also develop and support 20+ configurable portals that
               serve millions.
             </p>
             <div className="cta-row">
@@ -607,12 +621,12 @@ function App() {
           <section className="panel split-section" id="about">
             <h2 className="section-title">About</h2>
             <p>
-              I am a senior hands-on Java and full-stack engineer with
-              experience modernizing enterprise healthcare systems, developing
-              secure customer-facing and internal applications, and reviewing
-              peer code. Earlier in my career, I built IT service divisions,
-              managed technical staff, and worked directly with company
-              leadership—experience I am now bringing toward technical
+              I’m a senior Java and full-stack engineer. My work includes
+              modernizing enterprise healthcare systems, building secure
+              applications for customers and internal teams, and reviewing peer
+              code. Earlier in my career, I built IT service divisions, managed
+              technical staff, and worked directly with company leadership.
+              I’m drawing on that experience as I work toward technical
               leadership and engineering management.
             </p>
           </section>
@@ -620,7 +634,7 @@ function App() {
           <section className="panel" id="projects">
             <div className="projects-heading">
               <h2 className="section-title">Projects</h2>
-              <p>Enterprise platforms and things I build on my own.</p>
+              <p>Healthcare systems, web apps, and independent projects.</p>
             </div>
             {projectGroups.map((group) => (
               <div
@@ -648,6 +662,8 @@ function App() {
                         >
                           <img
                             src={project.image}
+                            width={project.imageWidth}
+                            height={project.imageHeight}
                             alt={`${project.name} preview`}
                             className="project-image"
                             loading="lazy"
@@ -669,6 +685,17 @@ function App() {
                               ))}
                           </ul>
                           <div className="project-links">
+                            {project.liveLink && project.liveLinkText && (
+                              <a
+                                href={project.liveLink}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="project-live-button"
+                              >
+                                <FiExternalLink aria-hidden="true" />{' '}
+                                {project.liveLinkText}
+                              </a>
+                            )}
                             {project.link && project.linkText && (
                               <a
                                 href={project.link}
@@ -691,19 +718,6 @@ function App() {
                                 </a>
                               )}
                           </div>
-                          {project.liveLink && project.liveLinkText && (
-                            <div className="project-live-row">
-                              <a
-                                href={project.liveLink}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="project-live-button"
-                              >
-                                <FiExternalLink aria-hidden="true" />{' '}
-                                {project.liveLinkText}
-                              </a>
-                            </div>
-                          )}
                         </div>
                       </div>
                     </article>
@@ -716,7 +730,7 @@ function App() {
           <section className="panel split-section" id="experience">
             <div className="section-heading">
               <h2 className="section-title">Experience</h2>
-              <p>From IT operations to enterprise software engineering.</p>
+              <p>My path from IT support to software engineering.</p>
             </div>
             <div className="timeline">
               {experience.map((role, index) => {
@@ -759,7 +773,7 @@ function App() {
           <section className="panel split-section" id="skills">
             <div className="section-heading">
               <h2 className="section-title">Skills</h2>
-              <p>The tools and experience behind the work.</p>
+              <p>Languages, platforms, and working knowledge.</p>
             </div>
             <div className="skills-columns">
               {Object.entries(categorizedSkills).map(
