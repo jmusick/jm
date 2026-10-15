@@ -36,10 +36,12 @@
 }
 .nav-links {
   display: flex;
-  gap: clamp(1rem, 2.5vw, 2.25rem);
+  flex-wrap: wrap;
+  gap: 0 clamp(1rem, 2.5vw, 2.25rem);
 }
 .nav-links a {
   display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
   min-height: 44px;
   min-width: 44px;
@@ -683,7 +685,7 @@ summary:active {
   .nav-links {
     width: 100%;
     justify-content: space-between;
-    gap: 0.5rem;
+    column-gap: 0.5rem;
     font-size: 1rem;
   }
   .nav-links a {
