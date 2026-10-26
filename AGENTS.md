@@ -68,7 +68,7 @@ The skills section is derived from these arrays, so keep it consistent when you 
 
 To add a project, add an approved screenshot to `public/projects/`, set its path and original pixel dimensions in `image`, `imageWidth`, and `imageHeight`, add the entry to the right group, and check where new stack items land in the skills categories. Screenshot links use `liveLink`. CSS crops previews to 16:10 from the top.
 
-Projects render in array order. The project markup selects Firelands Current, Tagstash, and The Hidden Lodge by name for the larger featured layout; update that selection if a featured project is renamed.
+`displayProjectGroups` derives the page order from these arrays: featured personal applications, UnitedHealthcare projects, then supporting websites. Entries retain their array order within each displayed group. The `featuredProjectNames` set selects Firelands Current, Tagstash, and The Hidden Lodge for the larger layout; update that set if a featured project is renamed. Supporting sites use compact screenshot thumbnails. About and the location/current-role snapshot follow Projects.
 
 If you change the headline, title or role, update `index.html` to match: `<title>`, meta description, OG and Twitter tags, and the JSON-LD block.
 

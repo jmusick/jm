@@ -5,7 +5,7 @@ A modern, interactive portfolio and resume site built with React and Vite, live 
 ## Features
 
 - **Interactive Experience Timeline** — Accordion-style expandable work history with full role descriptions and achievements
-- **Project Showcase** — Enterprise project rows, featured personal applications, and a screenshot gallery, with live-site and repository links where available
+- **Project Showcase** — Featured personal applications first, followed by enterprise project rows and a compact website gallery, with live-site and repository links where available
 - **Skill Categorization** — Plain lists grouped into Front End, Back End, Platforms & Tools, and Business, merged automatically from the project stacks
 - **Contact Form** — Cloudflare Pages Function with Turnstile spam protection and Cloudflare Email Sending; no email address is published on the site
 - **Theme** — White content surfaces, a navy hero, blue links, and a JM monogram
@@ -152,7 +152,7 @@ Website source, deployment files, and implementation documentation belong in thi
 
 Use lowercase kebab-case for folders. Preserve recovered export attachment names and provenance; use kebab-case for new curated filenames. Copy only approved deployment assets into `public/`, and update references in source. Keep private materials and raw audit evidence outside the public repository.
 
-Public audit summaries belong in `docs/audits/`; actionable findings and priorities belong in [GitHub issues](https://github.com/jmusick/jm/issues). See the [October 12 site audit](docs/audits/2026-10-12.md) and [October 14 design and copy review](docs/audits/2026-10-14-design-polish.md). Each report records its review scope and verification limits.
+Public audit summaries belong in `docs/audits/`; actionable findings and priorities belong in [GitHub issues](https://github.com/jmusick/jm/issues). See the [October 12 site audit](docs/audits/2026-10-12.md), [October 14 design and copy review](docs/audits/2026-10-14-design-polish.md), and [October 26 design review](docs/audits/2026-10-26-design-review.md). Each report records its review scope and verification limits.
 
 ### Theme
 
@@ -177,7 +177,7 @@ Page content lives in `src/App.jsx`. The portfolio data arrays are:
 - `projectGroups` — Project portfolio, grouped (`UnitedHealthcare`, `Personal`)
 - `skills` — Base skills list
 
-The introduction, About text, section descriptions, and contact copy are in the component markup. Projects render in array order. Firelands Current, Tagstash, and The Hidden Lodge are selected by name for the larger featured layout; update that selection in the project markup if those names change.
+The introduction, About text, section descriptions, and contact copy are in the component markup. `displayProjectGroups` presents featured personal applications first, UnitedHealthcare projects next, and supporting websites last; entries keep their array order within each displayed group. The `featuredProjectNames` set selects Firelands Current, Tagstash, and The Hidden Lodge for the larger layout. Update that set if those names change. Supporting sites use compact screenshot thumbnails. About and the location/current-role snapshot follow Projects.
 
 For a project screenshot, add the approved image to `public/projects/` and set `image`, `imageWidth`, and `imageHeight` on the project entry. The dimensions are the original image dimensions; CSS displays a responsive 16:10 crop from the top. Repository links need both a URL and its text (`link`/`linkText`, or `secondaryLink`/`secondaryLinkText`). Work projects omit those fields. Screenshot links use `liveLink`.
 

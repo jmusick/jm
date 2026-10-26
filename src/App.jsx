@@ -211,6 +211,29 @@ function App() {
     },
   ]
 
+  const featuredProjectNames = new Set([
+    'Firelands Current',
+    'Tagstash',
+    'The Hidden Lodge',
+  ])
+  const personalProjects = projectGroups.find((group) => group.title === 'Personal').projects
+  const displayProjectGroups = [
+    {
+      title: 'Personal applications',
+      className: 'personal-projects',
+      projects: personalProjects.filter((project) => featuredProjectNames.has(project.name)),
+    },
+    {
+      ...projectGroups.find((group) => group.title === 'UnitedHealthcare'),
+      className: 'enterprise-projects',
+    },
+    {
+      title: 'More websites',
+      className: 'supporting-projects',
+      projects: personalProjects.filter((project) => !featuredProjectNames.has(project.name)),
+    },
+  ]
+
   const experience = [
     {
       title: 'Associate Software Engineer',
@@ -605,9 +628,11 @@ function App() {
           </div>
         </nav>
         <header className="hero">
-          <div className="hero-copy">
+          <div className="hero-identity">
             <p className="hero-name">Justin Musick</p>
             <h1>Senior Java & <span className="role-phrase">Full-Stack</span> Software Engineer</h1>
+          </div>
+          <div className="hero-copy">
             <p className="lede">
               I modernize enterprise healthcare platforms used by thousands of
               people. I also develop and support 20+ configurable portals that
@@ -640,53 +665,17 @@ function App() {
               </a>
             </div>
           </div>
-          <aside className="hero-card">
-            <h2>At a glance</h2>
-            <dl className="snapshot">
-              <div>
-                <dt>Based in</dt>
-                <dd>Sandusky, Ohio</dd>
-              </div>
-              <div>
-                <dt>Currently</dt>
-                <dd>Associate Software Engineer at Optum</dd>
-              </div>
-              <div>
-                <dt>Focus</dt>
-                <dd>
-                  Java, full-stack modernization, and technical leadership
-                </dd>
-              </div>
-            </dl>
-            <p>
-              Remote preferred; open to opportunities within roughly one hour of
-              Sandusky.
-            </p>
-          </aside>
         </header>
 
         <main id="main">
-          <section className="panel split-section" id="about">
-            <h2 className="section-title">About</h2>
-            <p>
-              I’m a senior Java and full-stack engineer. My work includes
-              modernizing enterprise healthcare systems, building secure
-              applications for customers and internal teams, and reviewing peer
-              code. Earlier in my career, I built IT service divisions, managed
-              technical staff, and worked directly with company leadership.
-              I’m drawing on that experience as I work toward technical
-              leadership and engineering management.
-            </p>
-          </section>
-
           <section className="panel" id="projects">
             <div className="projects-heading">
               <h2 className="section-title">Projects</h2>
               <p>Healthcare systems, web apps, and independent projects.</p>
             </div>
-            {projectGroups.map((group) => (
+            {displayProjectGroups.map((group) => (
               <div
-                className={`project-group ${group.title === 'Personal' ? 'personal-projects' : 'enterprise-projects'}`}
+                className={`project-group ${group.className}`}
                 key={group.title}
               >
                 <h3 className="project-group-title">{group.title}</h3>
@@ -694,9 +683,9 @@ function App() {
                   {group.projects.map((project) => (
                     <article
                       className={`project-card ${
-                        ['Firelands Current', 'Tagstash', 'The Hidden Lodge'].includes(project.name)
+                        featuredProjectNames.has(project.name)
                           ? 'featured-project'
-                          : ''
+                          : project.image ? 'supporting-project' : ''
                       }`}
                       key={project.name}
                     >
@@ -773,6 +762,44 @@ function App() {
                 </div>
               </div>
             ))}
+          </section>
+
+          <section className="panel split-section" id="about">
+            <h2 className="section-title">About</h2>
+            <div className="about-content">
+              <p className="about-description">
+                I’m a senior Java and full-stack engineer. My work includes
+                modernizing enterprise healthcare systems, building secure
+                applications for customers and internal teams, and reviewing peer
+                code. Earlier in my career, I built IT service divisions, managed
+                technical staff, and worked directly with company leadership.
+                I’m drawing on that experience as I work toward technical
+                leadership and engineering management.
+              </p>
+              <aside className="profile-snapshot">
+                <h3>At a glance</h3>
+                <dl className="snapshot">
+                  <div>
+                    <dt>Based in</dt>
+                    <dd>Sandusky, Ohio</dd>
+                  </div>
+                  <div>
+                    <dt>Currently</dt>
+                    <dd>Associate Software Engineer at Optum</dd>
+                  </div>
+                  <div>
+                    <dt>Focus</dt>
+                    <dd>
+                      Java, full-stack modernization, and technical leadership
+                    </dd>
+                  </div>
+                </dl>
+                <p>
+                  Remote preferred; open to opportunities within roughly one hour of
+                  Sandusky.
+                </p>
+              </aside>
+            </div>
           </section>
 
           <section className="panel split-section" id="experience">
