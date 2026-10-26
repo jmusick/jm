@@ -180,19 +180,38 @@ export const onRequestPost = async ({ request, env }) => {
   const message = asString(payload?.message)
 
   if (!name || !email || !message) {
-    return json({ error: 'Name, email, and message are required.' }, 400)
+    const field = !name ? 'name' : !email ? 'email' : 'message'
+    return json({ error: 'Name, email, and message are required.', field }, 400)
   }
   if (name.length > LIMITS.name) {
-    return json({ error: `Name must be ${LIMITS.name} characters or less.` }, 400)
+    return json(
+      { error: `Name must be ${LIMITS.name} characters or less.`, field: 'name' },
+      400
+    )
   }
   if (email.length > LIMITS.email || !isValidEmail(email)) {
-    return json({ error: 'Please provide a valid email address.' }, 400)
+    return json(
+      { error: 'Please provide a valid email address.', field: 'email' },
+      400
+    )
   }
   if (message.length < LIMITS.messageMin) {
-    return json({ error: `Message must be at least ${LIMITS.messageMin} characters.` }, 400)
+    return json(
+      {
+        error: `Message must be at least ${LIMITS.messageMin} characters.`,
+        field: 'message',
+      },
+      400
+    )
   }
   if (message.length > LIMITS.messageMax) {
-    return json({ error: `Message must be ${LIMITS.messageMax} characters or less.` }, 400)
+    return json(
+      {
+        error: `Message must be ${LIMITS.messageMax} characters or less.`,
+        field: 'message',
+      },
+      400
+    )
   }
 
   const missing = [
