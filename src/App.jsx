@@ -334,6 +334,7 @@ function App() {
   const emptyForm = { name: '', email: '', message: '', website: '' }
   const [formData, setFormData] = useState(emptyForm)
   const [formStatus, setFormStatus] = useState(null)
+  const [fieldError, setFieldError] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [captchaToken, setCaptchaToken] = useState('')
   const turnstileRef = useRef(null)
@@ -351,8 +352,21 @@ function App() {
           theme: 'light',
           size: 'compact',
           callback: setCaptchaToken,
-          'expired-callback': () => setCaptchaToken(''),
-          'error-callback': () => setCaptchaToken(''),
+          'expired-callback': () => {
+            setCaptchaToken('')
+            setFormStatus({
+              type: 'error',
+              message: 'The spam check expired. Please complete it again.',
+            })
+          },
+          'error-callback': () => {
+            setCaptchaToken('')
+            setFormStatus({
+              type: 'error',
+              message:
+                'The spam check hit an error. Please complete it again or refresh the page.',
+            })
+          },
         })
       })
       .catch(() => {
@@ -383,10 +397,12 @@ function App() {
   const handleFormChange = (e) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
+    setFieldError((prev) => (prev?.field === name ? null : prev))
   }
 
   const handleFormSubmit = async (e) => {
     e.preventDefault()
+    setFieldError(null)
 
     if (!captchaToken) {
       setFormStatus({
@@ -397,7 +413,7 @@ function App() {
     }
 
     setIsSubmitting(true)
-    setFormStatus(null)
+    setFormStatus({ type: 'info', message: 'Sending your message...' })
 
     try {
       const response = await fetch('/api/contact', {
@@ -408,6 +424,9 @@ function App() {
       const result = await response.json().catch(() => null)
 
       if (!response.ok) {
+        if (['name', 'email', 'message'].includes(result?.field)) {
+          setFieldError({ field: result.field, message: result.error })
+        }
         setFormStatus({
           type: 'error',
           message: result?.error || 'Failed to send message. Please try again.',
@@ -824,7 +843,18 @@ function App() {
                   onChange={handleFormChange}
                   required
                   placeholder="Your name"
+                  aria-invalid={fieldError?.field === 'name' ? 'true' : undefined}
+                  aria-describedby={
+                    fieldError?.field === 'name' ? 'name-error' : undefined
+                  }
                 />
+                <p
+                  id="name-error"
+                  className="field-error"
+                  hidden={fieldError?.field !== 'name'}
+                >
+                  {fieldError?.field === 'name' ? fieldError.message : ''}
+                </p>
               </div>
 
               <div className="form-group">
@@ -838,7 +868,18 @@ function App() {
                   onChange={handleFormChange}
                   required
                   placeholder="your@email.com"
+                  aria-invalid={fieldError?.field === 'email' ? 'true' : undefined}
+                  aria-describedby={
+                    fieldError?.field === 'email' ? 'email-error' : undefined
+                  }
                 />
+                <p
+                  id="email-error"
+                  className="field-error"
+                  hidden={fieldError?.field !== 'email'}
+                >
+                  {fieldError?.field === 'email' ? fieldError.message : ''}
+                </p>
               </div>
 
               <div className="form-group message-group">
@@ -850,8 +891,19 @@ function App() {
                   onChange={handleFormChange}
                   required
                   placeholder="Your message..."
+                  aria-invalid={fieldError?.field === 'message' ? 'true' : undefined}
+                  aria-describedby={
+                    fieldError?.field === 'message' ? 'message-error' : undefined
+                  }
                   rows={5}
                 />
+                <p
+                  id="message-error"
+                  className="field-error"
+                  hidden={fieldError?.field !== 'message'}
+                >
+                  {fieldError?.field === 'message' ? fieldError.message : ''}
+                </p>
               </div>
 
               <div className="form-honeypot" aria-hidden="true">
@@ -877,11 +929,20 @@ function App() {
                 {isSubmitting ? 'Sending...' : 'Send message'}
               </button>
 
-              {formStatus && (
-                <div className={`form-status ${formStatus.type}`} role="status">
-                  {formStatus.message}
-                </div>
-              )}
+              <div
+                className={`form-status ${formStatus && formStatus.type !== 'error' ? formStatus.type : ''}`}
+                role="status"
+              >
+                {formStatus && formStatus.type !== 'error'
+                  ? formStatus.message
+                  : ''}
+              </div>
+              <div
+                className={`form-status ${formStatus?.type === 'error' ? 'error' : ''}`}
+                role="alert"
+              >
+                {formStatus?.type === 'error' ? formStatus.message : ''}
+              </div>
             </form>
           </section>
         </main>
