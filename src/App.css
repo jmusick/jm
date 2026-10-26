@@ -500,7 +500,7 @@ main {
 .form-group input[aria-invalid='true'],
 .form-group textarea[aria-invalid='true'] {
   border-color: var(--error);
-  border-width: 2px;
+  box-shadow: inset 0 0 0 1px var(--error);
 }
 .field-error {
   margin: 0;

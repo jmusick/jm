@@ -20,6 +20,10 @@ const TURNSTILE_SITE_KEY = ['localhost', '127.0.0.1'].includes(
   ? '1x00000000000000000000AA'
   : '0x4AAAAAAFFsS0J0AZW7rS83'
 
+const CAPTCHA_EXPIRED_MESSAGE = 'The spam check expired and is refreshing.'
+const CAPTCHA_ERROR_MESSAGE =
+  'The spam check hit an error. Please complete it again or refresh the page.'
+
 let turnstileLoader
 const loadTurnstile = () => {
   turnstileLoader ??= new Promise((resolve, reject) => {
@@ -339,6 +343,7 @@ function App() {
   const [captchaToken, setCaptchaToken] = useState('')
   const turnstileRef = useRef(null)
   const turnstileWidgetId = useRef(null)
+  const errorTimer = useRef(null)
 
   useEffect(() => {
     let cancelled = false
@@ -351,21 +356,28 @@ function App() {
           action: 'contact',
           theme: 'light',
           size: 'compact',
-          callback: setCaptchaToken,
+          callback: (token) => {
+            setCaptchaToken(token)
+            setFormStatus((prev) =>
+              prev?.message === CAPTCHA_EXPIRED_MESSAGE ? null : prev
+            )
+          },
+          // Turnstile refreshes expired tokens on its own, so only note it.
           'expired-callback': () => {
             setCaptchaToken('')
-            setFormStatus({
-              type: 'error',
-              message: 'The spam check expired. Please complete it again.',
-            })
+            setFormStatus((prev) =>
+              prev?.type === 'success'
+                ? prev
+                : { type: 'info', message: CAPTCHA_EXPIRED_MESSAGE }
+            )
           },
           'error-callback': () => {
             setCaptchaToken('')
-            setFormStatus({
-              type: 'error',
-              message:
-                'The spam check hit an error. Please complete it again or refresh the page.',
-            })
+            setFormStatus((prev) =>
+              prev?.type === 'success' || prev?.message === CAPTCHA_ERROR_MESSAGE
+                ? prev
+                : { type: 'error', message: CAPTCHA_ERROR_MESSAGE }
+            )
           },
         })
       })
@@ -379,6 +391,7 @@ function App() {
 
     return () => {
       cancelled = true
+      clearTimeout(errorTimer.current)
       if (turnstileWidgetId.current !== null) {
         window.turnstile?.remove(turnstileWidgetId.current)
         turnstileWidgetId.current = null
@@ -394,6 +407,30 @@ function App() {
     }
   }
 
+  // Clear the region first so a repeated identical error is announced again.
+  const showError = (message) => {
+    clearTimeout(errorTimer.current)
+    setFormStatus(null)
+    errorTimer.current = setTimeout(() => {
+      setFormStatus({ type: 'error', message })
+    }, 50)
+  }
+
+  const fieldErrorProps = (name) => ({
+    'aria-invalid': fieldError?.field === name ? 'true' : undefined,
+    'aria-describedby': fieldError?.field === name ? `${name}-error` : undefined,
+  })
+
+  const renderFieldError = (name) => (
+    <p id={`${name}-error`} className="field-error" hidden={fieldError?.field !== name}>
+      {fieldError?.field === name ? fieldError.message : ''}
+    </p>
+  )
+
+  const statusMessage =
+    formStatus && formStatus.type !== 'error' ? formStatus.message : ''
+  const alertMessage = formStatus?.type === 'error' ? formStatus.message : ''
+
   const handleFormChange = (e) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
@@ -402,13 +439,11 @@ function App() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault()
+    clearTimeout(errorTimer.current)
     setFieldError(null)
 
     if (!captchaToken) {
-      setFormStatus({
-        type: 'error',
-        message: 'Please wait for the spam check to finish, then try again.',
-      })
+      showError('Please wait for the spam check to finish, then try again.')
       return
     }
 
@@ -427,10 +462,7 @@ function App() {
         if (['name', 'email', 'message'].includes(result?.field)) {
           setFieldError({ field: result.field, message: result.error })
         }
-        setFormStatus({
-          type: 'error',
-          message: result?.error || 'Failed to send message. Please try again.',
-        })
+        showError(result?.error || 'Failed to send message. Please try again.')
         return
       }
 
@@ -441,10 +473,7 @@ function App() {
       setFormData(emptyForm)
     } catch (error) {
       console.error('Form submission error:', error)
-      setFormStatus({
-        type: 'error',
-        message: 'Could not reach the server. Please try again in a moment.',
-      })
+      showError('Could not reach the server. Please try again in a moment.')
     } finally {
       resetCaptcha()
       setIsSubmitting(false)
@@ -843,18 +872,9 @@ function App() {
                   onChange={handleFormChange}
                   required
                   placeholder="Your name"
-                  aria-invalid={fieldError?.field === 'name' ? 'true' : undefined}
-                  aria-describedby={
-                    fieldError?.field === 'name' ? 'name-error' : undefined
-                  }
+                  {...fieldErrorProps('name')}
                 />
-                <p
-                  id="name-error"
-                  className="field-error"
-                  hidden={fieldError?.field !== 'name'}
-                >
-                  {fieldError?.field === 'name' ? fieldError.message : ''}
-                </p>
+                {renderFieldError('name')}
               </div>
 
               <div className="form-group">
@@ -868,18 +888,9 @@ function App() {
                   onChange={handleFormChange}
                   required
                   placeholder="your@email.com"
-                  aria-invalid={fieldError?.field === 'email' ? 'true' : undefined}
-                  aria-describedby={
-                    fieldError?.field === 'email' ? 'email-error' : undefined
-                  }
+                  {...fieldErrorProps('email')}
                 />
-                <p
-                  id="email-error"
-                  className="field-error"
-                  hidden={fieldError?.field !== 'email'}
-                >
-                  {fieldError?.field === 'email' ? fieldError.message : ''}
-                </p>
+                {renderFieldError('email')}
               </div>
 
               <div className="form-group message-group">
@@ -891,19 +902,10 @@ function App() {
                   onChange={handleFormChange}
                   required
                   placeholder="Your message..."
-                  aria-invalid={fieldError?.field === 'message' ? 'true' : undefined}
-                  aria-describedby={
-                    fieldError?.field === 'message' ? 'message-error' : undefined
-                  }
+                  {...fieldErrorProps('message')}
                   rows={5}
                 />
-                <p
-                  id="message-error"
-                  className="field-error"
-                  hidden={fieldError?.field !== 'message'}
-                >
-                  {fieldError?.field === 'message' ? fieldError.message : ''}
-                </p>
+                {renderFieldError('message')}
               </div>
 
               <div className="form-honeypot" aria-hidden="true">
@@ -930,18 +932,16 @@ function App() {
               </button>
 
               <div
-                className={`form-status ${formStatus && formStatus.type !== 'error' ? formStatus.type : ''}`}
+                className={statusMessage ? `form-status ${formStatus.type}` : 'form-status'}
                 role="status"
               >
-                {formStatus && formStatus.type !== 'error'
-                  ? formStatus.message
-                  : ''}
+                {statusMessage}
               </div>
               <div
-                className={`form-status ${formStatus?.type === 'error' ? 'error' : ''}`}
+                className={alertMessage ? 'form-status error' : 'form-status'}
                 role="alert"
               >
-                {formStatus?.type === 'error' ? formStatus.message : ''}
+                {alertMessage}
               </div>
             </form>
           </section>
