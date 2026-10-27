@@ -1,0 +1,6 @@
+# Historical client-side keys, public by design and no longer used (the contact form now posts to /api/contact).
+# Web3Forms public access key in the old contact form
+17a5ea0df8aef0f7d32ce359b6bfca3eb2f91dd6:src/App.jsx:generic-api-key:274
+# hCaptcha site key in the old widget and its README mention
+df6a28c017daf726fbc23a858becef46d83465be:src/App.jsx:generic-api-key:640
+df6a28c017daf726fbc23a858becef46d83465be:README.md:generic-api-key:140
