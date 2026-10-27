@@ -22,6 +22,8 @@ Requires Node 20.19+ (20.x), 22.13+ (22.x), or 24+ to satisfy Vite 8 and ESLint 
 
 There is no test suite. Before you finish a change, run `npm run lint` and `npm run build`. Lint ignores `dist/` and Wrangler's generated `.wrangler/` folder.
 
+CI (`.github/workflows/ci.yml`) calls the shared jmusick/ci `baseline` and `web-app` workflows, pinned by commit SHA with the release tag as a comment, and runs `npm run lint` and `npm run build`. Its `CI gate` job is the one check to require. `.github/dependabot.yml` keeps npm packages and those pins current; do not replace a SHA pin with a floating tag.
+
 ## Layout
 
 ```
