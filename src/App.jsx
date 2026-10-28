@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react'
 import {
   FiBriefcase,
   FiChevronDown,
+  FiDownload,
   FiExternalLink,
   FiGithub,
   FiLayers,
@@ -662,6 +663,9 @@ function App() {
                 rel="noreferrer"
               >
                 <FiLinkedin aria-hidden="true" /> LinkedIn
+              </a>
+              <a className="profile-link" href="/resume.pdf" download>
+                <FiDownload aria-hidden="true" /> Resume (PDF)
               </a>
             </div>
           </div>

@@ -187,7 +187,7 @@ Each project's `stack` is merged into the skills list. New skills are sorted int
 
 If you change the title or role, also update the metadata and JSON-LD in `index.html`.
 
-Content releases update the version in both `package.json` and `package-lock.json` with `npm version <patch|minor> --no-git-tag-version`. Vite exposes that version as `__APP_VERSION__` for the footer. Update `public/sitemap.xml` when page content changes. Do not add a downloadable resume or publish a personal email address.
+Content releases update the version in both `package.json` and `package-lock.json` with `npm version <patch|minor> --no-git-tag-version`. Vite exposes that version as `__APP_VERSION__` for the footer. Update `public/sitemap.xml` when page content changes. The downloadable resume lives at `public/resume.pdf`; do not publish a personal email address anywhere else.
 
 ## License
 

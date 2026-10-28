@@ -84,8 +84,8 @@ If you change the headline, title or role, update `index.html` to match: `<title
 - Plaintext Function config (`CF_ACCOUNT_ID`, `EMAIL_FROM_CONTACT`, `TURNSTILE_HOSTNAMES`) goes in `wrangler.toml` `[vars]`, which Pages treats as the source of truth. Secrets (`CF_EMAIL_API_TOKEN`, `TURNSTILE_SECRET_KEY`, `CONTACT_TO_EMAIL`) live only in the Pages dashboard or a local `.dev.vars`. Never commit them. After input validation, non-honeypot submissions return 503 if any of the six is missing.
 - `name` in `wrangler.toml` must stay `jm`, matching the Pages project. If the site gets a new domain, add it to `TURNSTILE_HOSTNAMES` and to the Turnstile widget's hostnames in the Cloudflare dashboard.
 - Functions code in `functions/` follows the same JS style and is linted with the rest of the repo.
-- Do not publish a personal email address anywhere (page, `index.html` meta or JSON-LD, or committed config; the repo is public). All contact goes through the form.
-- Do not add a downloadable resume to `public/`. It was removed on purpose.
+- Do not publish a personal email address anywhere except inside `public/resume.pdf` (page, `index.html` meta or JSON-LD, or committed config; the repo is public). All contact goes through the form.
+- `public/resume.pdf` is the downloadable resume, published deliberately and as is, including the personal email and phone it contains. Replace the file to update it; do not copy those details into page markup, `index.html` or config.
 
 ## Security headers
 
