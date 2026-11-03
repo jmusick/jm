@@ -18,6 +18,14 @@ const LIMITS = {
   messageMax: 4000,
 }
 
+// Largest request body read, in bytes. The worst legitimate payload is the
+// capped fields (4,354 UTF-16 units, at most 6 bytes each once JSON-escaped,
+// so about 26 KB) plus a 2,048-byte Turnstile token and the keys: under
+// 29 KB. Typical submissions are a few KB.
+const MAX_BODY_BYTES = 32 * 1024
+
+const EMAIL_SEND_TIMEOUT_MS = 10_000
+
 const TURNSTILE_ACTION = 'contact'
 const SUCCESS_MESSAGE = "Message sent! I'll get back to you soon."
 
@@ -44,6 +52,38 @@ const escapeHtml = (value) =>
 
 // Strip line breaks from values interpolated into header-like fields.
 const singleLine = (value) => value.replace(/[\r\n]+/g, ' ').trim()
+
+// Only the media type matters; parameters such as charset are allowed.
+const isJsonRequest = (request) =>
+  (request.headers.get('Content-Type') || '').split(';')[0].trim().toLowerCase() ===
+  'application/json'
+
+// Returns the body as text, or null once it is over maxBytes. A declared
+// Content-Length over the limit is refused up front; otherwise the bytes are
+// counted as they arrive, so a missing or understated length can't get past
+// the limit and the rest of an oversized body is never read.
+const readBodyText = async (request, maxBytes) => {
+  const declaredLength = Number.parseInt(request.headers.get('Content-Length') ?? '', 10)
+  if (declaredLength > maxBytes) return null
+  if (!request.body) return ''
+
+  const reader = request.body.getReader()
+  const decoder = new TextDecoder()
+  let received = 0
+  let text = ''
+
+  for (;;) {
+    const { done, value } = await reader.read()
+    if (done) return text + decoder.decode()
+
+    received += value.byteLength
+    if (received > maxBytes) {
+      reader.cancel().catch(() => {})
+      return null
+    }
+    text += decoder.decode(value, { stream: true })
+  }
+}
 
 const verifyTurnstile = async (request, env, token) => {
   if (!token || token.length > 2048) {
@@ -109,6 +149,7 @@ const sendEmail = async (message, env) => {
         // Cloudflare's REST schema requires this exact snake_case field.
         reply_to: message.replyTo,
       }),
+      signal: AbortSignal.timeout(EMAIL_SEND_TIMEOUT_MS),
     }
   )
 
@@ -162,15 +203,43 @@ const buildBodies = ({ name, email, message }) => {
   return { text, html }
 }
 
+// Every other method gets 405 instead of falling through to the static
+// homepage. Pages routes method-specific exports ahead of onRequest, so POST
+// never lands here. OPTIONS and HEAD get 405 too: the form posts same-origin,
+// so there is no CORS preflight to answer, and nothing here can be fetched.
+export const onRequest = () => {
+  const response = json({ error: 'Method not allowed.' }, 405)
+  response.headers.set('Allow', 'POST')
+  return response
+}
+
 export const onRequestPost = async ({ request, env }) => {
+  if (!isJsonRequest(request)) {
+    return json({ error: 'Content-Type must be application/json.' }, 415)
+  }
+
+  let body
+  try {
+    body = await readBodyText(request, MAX_BODY_BYTES)
+  } catch {
+    return json({ error: 'Malformed request.' }, 400)
+  }
+  if (body === null) {
+    return json(
+      { error: 'Your message is too long to send. Please shorten it and try again.' },
+      413
+    )
+  }
+
   let payload
   try {
-    payload = await request.json()
+    payload = JSON.parse(body)
   } catch {
     return json({ error: 'Malformed request.' }, 400)
   }
 
-  // Honeypot: real visitors never fill this in, so pretend it worked.
+  // Honeypot: real visitors never fill this in, so pretend it worked. It runs
+  // after the method, type, size and parse checks so those still apply.
   if (asString(payload?.website)) {
     return json({ message: SUCCESS_MESSAGE })
   }
