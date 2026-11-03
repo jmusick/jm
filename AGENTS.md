@@ -36,6 +36,8 @@ functions/api/contact.js  # Pages Function: POST /api/contact (Turnstile check +
 public/_headers           # Cloudflare security (CSP, HSTS) and cache headers
 public/sitemap.xml        # sitemap (update <lastmod> when content changes)
 public/robots.txt
+public/404.html           # real 404 page; its presence makes Pages return 404 for unknown paths, not the SPA fallback
+public/404.css            # external stylesheet for 404.html (CSP forbids inline styles)
 public/projects/          # project screenshots, referenced as /projects/<name>.png
 vite.config.js            # injects __APP_VERSION__ from package.json
 wrangler.toml             # Cloudflare Pages config: project name, compatibility date, plaintext [vars]
