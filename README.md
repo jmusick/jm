@@ -52,7 +52,7 @@ npm run lint
 
 There is no automated test suite. Run `npm run lint` and `npm run build` before finishing a change; check layout changes at desktop and mobile widths.
 
-GitHub Actions runs the same lint and build on every pull request and push to `master`, through the shared [jmusick/ci](https://github.com/jmusick/ci) workflows (baseline checks plus web-app). The **CI gate** job passes only when all of them do. Dependabot proposes weekly npm and GitHub Actions updates, including new jmusick/ci releases.
+GitHub Actions runs the same lint and build on every pull request and push to `main`, through the shared [jmusick/ci](https://github.com/jmusick/ci) workflows (baseline checks plus web-app). The **CI gate** job passes only when all of them do. Dependabot proposes weekly npm and GitHub Actions updates, including new jmusick/ci releases.
 
 The Vite dev server does not run the contact form's `/api/contact` Function, so submitting fails under `npm run dev`. To test the form end to end locally:
 
@@ -82,7 +82,7 @@ npm run preview
 
 ## Deployment
 
-The site is deployed on Cloudflare Pages (project `jm`) and auto-deploys on push to the `master` branch.
+The site is deployed on Cloudflare Pages (project `jm`) and auto-deploys on push to the `main` branch.
 
 Build settings:
 
