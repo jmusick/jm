@@ -124,6 +124,8 @@ src/
 └── main.jsx            # React entry point
 
 public/
+├── 404.html            # Not-found page; makes unknown paths return HTTP 404
+├── 404.css             # Stylesheet for 404.html
 ├── _headers            # Cloudflare cache & security headers (CSP, HSTS)
 ├── bg.png              # Social share image; not used as a hero background
 ├── favicon.svg         # Active browser favicon
