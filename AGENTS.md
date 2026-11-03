@@ -4,7 +4,7 @@ Guidance for AI coding agents working in this repository.
 
 ## Project
 
-Personal portfolio and resume site for Justin Musick, served at https://justinmusick.com. It is a single-page React 19 + Vite 8 app deployed on Cloudflare Pages, which auto-deploys on push to `master`.
+Personal portfolio and resume site for Justin Musick, served at https://justinmusick.com. It is a single-page React 19 + Vite 8 app deployed on Cloudflare Pages, which auto-deploys on push to `main`.
 
 ## Commands
 
@@ -119,4 +119,4 @@ Keep these in place when editing markup or styles:
 
 - The footer shows the `package.json` version through `__APP_VERSION__`. Content releases bump the version in both `package.json` and `package-lock.json` (`npm version <patch|minor> --no-git-tag-version`).
 - Commit messages use Conventional Commit style, for example `release: add <project> for v1.7.0`, `fix: ...` or `chore(release): ...`.
-- Work goes straight to `master`, which deploys to production. Do not push unless asked.
+- Work goes straight to `main`, which deploys to production. Do not push unless asked.
