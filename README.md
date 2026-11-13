@@ -129,7 +129,6 @@ public/
 ├── _headers            # Cloudflare cache & security headers (CSP, HSTS)
 ├── bg.png              # Social share image; not used as a hero background
 ├── favicon.svg         # Active browser favicon
-├── favicon.png         # Retained raster favicon asset
 ├── projects/           # Project screenshot images
 ├── robots.txt
 └── sitemap.xml
@@ -139,7 +138,6 @@ wrangler.toml           # Cloudflare Pages config
 .dev.vars.example       # Template for local Function secrets
 AGENTS.md               # Guidance for AI coding agents
 CLAUDE.md               # Imports AGENTS.md for Claude
-docs/audits/            # Public audit summaries
 ```
 
 ## Customization
@@ -148,15 +146,15 @@ docs/audits/            # Public audit summaries
 
 Website source, deployment files, and implementation documentation belong in this repository (`C:\Users\JD\source\jm`). Original artwork and supporting project materials live separately in `C:\Users\JD\projects\jm`:
 
-- `01-assets/` — brand originals and recovered exports with provenance
-- `02-working/` — drafts and generated artwork awaiting curation
-- `03-resources/` — references, organization records, and dated raw audit evidence
-- `04-exports/` — approved, optimized deliverables ready for website use
-- `99-archive/` — retired material
+- `assets/` — brand originals and recovered exports with provenance
+- `working/` — drafts and generated artwork awaiting curation
+- `resources/` — references, organization records, and dated raw audit evidence
+- `exports/` — approved, optimized deliverables ready for website use
+- `archive/` — retired material
 
 Use lowercase kebab-case for folders. Preserve recovered export attachment names and provenance; use kebab-case for new curated filenames. Copy only approved deployment assets into `public/`, and update references in source. Keep private materials and raw audit evidence outside the public repository.
 
-Public audit summaries belong in `docs/audits/`; actionable findings and priorities belong in [GitHub issues](https://github.com/jmusick/jm/issues). See the [October 12 site audit](docs/audits/2026-10-12.md), [October 14 design and copy review](docs/audits/2026-10-14-design-polish.md), and [October 26 design review](docs/audits/2026-10-26-design-review.md). Each report records its review scope and verification limits.
+Track audit findings, priorities, and status in [GitHub issues](https://github.com/jmusick/jm/issues). Audit reports and raw evidence stay in the local asset workspace under `resources/audits/YYYY-MM-DD/`, outside this repository.
 
 ### Theme
 

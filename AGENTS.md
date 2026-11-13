@@ -44,23 +44,21 @@ wrangler.toml             # Cloudflare Pages config: project name, compatibility
 .dev.vars.example         # template for local Function secrets (.dev.vars is git-ignored)
 ```
 
-`src/assets/` holds leftover template files (`hero.png`, `react.svg`, `vite.svg`) that nothing imports.
-
 ## Local assets and documentation
 
-- `C:\Users\JD\source\jm` owns website code, deployed assets, `README.md`, `AGENTS.md`, and public audit summaries in `docs/audits/`.
-- `C:\Users\JD\projects\jm` owns local originals and supporting materials: `01-assets/`, `02-working/`, `03-resources/`, `04-exports/`, and `99-archive/`. Its `README.md` describes placement and publication workflow.
+- `C:\Users\JD\source\jm` owns website code, deployed assets, `README.md`, and `AGENTS.md`.
+- `C:\Users\JD\projects\jm` owns local originals and supporting materials: `assets/`, `working/`, `resources/`, `exports/`, and `archive/`, plus private job-search records in `job-search/` that never belong in this repository. Its `README.md` describes placement and publication workflow.
 - Use lowercase kebab-case for project-material folders and new curated asset filenames. Keep dates as `YYYY-MM-DD`; preserve recovered attachment names and historical provenance source paths.
 - Copy only approved deployment assets into `public/`. Keep recovered exports, private correspondence, draft resumes, and raw audit evidence out of the public repository.
-- Store raw audit evidence under the asset workspace's `03-resources/audits/YYYY-MM-DD/`. Public reports should link GitHub issues and separate observed findings from unverified dashboard controls.
-- Track audit work in GitHub issues with category and priority labels. `TODO.md` remains a local, git-ignored checklist.
+- Store audit reports and raw evidence under the asset workspace's `resources/audits/YYYY-MM-DD/`, outside this repository.
+- Track findings, future work, priorities, and status in GitHub issues with category and priority labels. Separate observed findings from unverified dashboard controls.
 
 ## Editing content
 
 Portfolio data lives in arrays near the top of `App()` in `src/App.jsx`. The introduction, About text, section descriptions, and contact copy are in the component markup.
 
 - `skills`: the base skills list.
-- `projectGroups`: project groups (`UnitedHealthcare`, `Personal`). Each project takes `name`, `description` and `stack` (a comma-separated string), plus optional `liveLink`/`liveLinkText`, `link`/`linkText`, `secondaryLink`/`secondaryLinkText`, and `image`/`imageWidth`/`imageHeight`. Repository links require both URL and text; work projects omit those fields. `showGithub` is legacy data and does not control rendering.
+- `projectGroups`: project groups (`UnitedHealthcare`, `Personal`). Each project takes `name`, `description` and `stack` (a comma-separated string), plus optional `liveLink`/`liveLinkText`, `link`/`linkText`, `secondaryLink`/`secondaryLinkText`, and `image`/`imageWidth`/`imageHeight`. Repository links require both URL and text; work projects omit those fields.
 - `experience`: roles, each with `title`, `company`, `range` and `bullets`.
 
 The skills section is derived from these arrays, so keep it consistent when you edit them:
@@ -116,7 +114,6 @@ Keep these in place when editing markup or styles:
 - Keep link targets at least 44px in both dimensions and supporting text at least 16px. Form borders use `--control-line`; `--line` is for decorative dividers. Put hover feedback inside `@media (hover: hover)`.
 - A global `@media (prefers-reduced-motion: reduce)` block in `src/App.css` cuts animations, transitions and smooth scrolling. New animations are covered automatically.
 - There is exactly one `<h1>`, and heading levels do not skip. Decorative icons get `aria-hidden="true"`, and every form field has a real `<label>`.
-- `TODO.md` is a local, git-ignored working checklist. Do not commit it.
 
 ## Versioning and commits
 

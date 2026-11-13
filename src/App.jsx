@@ -90,7 +90,6 @@ function App() {
             'Modernized and improved a secure healthcare portal used by thousands of people to manage claims, track deductibles, request documents, and handle disputes.',
           stack:
             'Java, Struts, Spring, JavaScript, CSS, Bootstrap, jQuery, Jinja, REST',
-          showGithub: false,
         },
         {
           name: 'IWS Internal Workflow System',
@@ -98,14 +97,12 @@ function App() {
             'Modernized the backend and interface of an internal platform used by dozens of departments. The system handles document indexing, OCR, configurable workflows, and role-based security.',
           stack:
             'Java, Struts, Spring, JavaScript, CSS, Bootstrap, jQuery, Jinja, REST',
-          showGithub: false,
         },
         {
           name: 'UMR Portals',
           description:
             'Develop and support 20+ configurable portals on the Optum Adaptive Platform. They serve millions of users across UMR, NYC, GEHA, and other clients and lines of business.',
           stack: 'Java, Spring, JavaScript, CSS, Bootstrap, jQuery, JSP, REST',
-          showGithub: false,
         },
       ],
     },
