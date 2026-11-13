@@ -613,10 +613,7 @@ function App() {
       <div className="site-shell" id="top">
         <nav className="site-nav" aria-label="Main navigation">
           <a className="wordmark" href="#top" aria-label="Justin Musick, back to top">
-            <svg className="brand-mark" viewBox="0 0 64 58" aria-hidden="true">
-              <circle cx="17" cy="8" r="3" />
-              <path d="M17 20v21c0 7-4 11-11 11H4M30 42V8l14 22L58 8v34" />
-            </svg>
+            <img className="brand-mark" src="/jm-keystone.webp" alt="" width="1774" height="887" />
           </a>
           <div className="nav-links">
             <a href="#projects">Projects</a>
